@@ -4,9 +4,9 @@ This repository is the final repository of the Ios App
 
 <<<<<<< HEAD
 ## Integrants 
-Maria Jose Cely - 202011803
-Alejandro Gonzalez - 201821205
-Juan Pablo Hernandez - 201912855
+- Maria Jose Cely - 202011803
+- Alejandro Gonzalez - 201821205
+- Juan Pablo Hernandez - 201912855
 ### Prerequisites
 
 - Xcode 12.0
