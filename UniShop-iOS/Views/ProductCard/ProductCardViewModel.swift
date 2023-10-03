@@ -38,19 +38,37 @@ class ProductCardViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var loadingMessage: String = ""
 
+    // smart algorithm
     func fetchRecommendedProducts() {
         self.products = []
         self.isLoading = true
         self.loadingMessage = "Searching for products that suit you..."
-
+        
+        // similar degrees mapping
+        let similarDegrees: [String: [String]]  = [
+            "ALL": ["ISIS", "IELE", "MATE", "ADMIN", "IIND", "ARQUI", "ARTE", "DISE"],
+            "ISIS": ["ISIS", "IELE", "MATE", "ADMIN", "IIND"],
+            "IELE": ["ISIS", "IELE", "MATE"],
+            "MATE": ["ISIS", "MATE", "ADMIN", "IIND"],
+            "ADMIN": ["ADMIN", "IIND"],
+            "IIND": ["ISIS", "IELE", "MATE", "ADMIN", "IIND"],
+            "ARQUI": ["ARQUI", "ARTE", "DISE"],
+            "ARTE": ["ARQUI", "ARTE", "DISE"],
+            "DISE": ["ARQUI", "ARTE", "DISE"]
+        ]
+        
+        let userDegree = UserDefaults.standard.string(forKey: "userDegree") ?? "ALL"
+        
+        let relevantDegrees = similarDegrees[userDegree] ?? [userDegree]
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.products = self.allProducts.filter { product in
-                return product.degree == "ISIS"
+                return relevantDegrees.contains(product.degree)
             }
             self.isLoading = false
         }
     }
-    
+
     func fetchBargainProducts() {
         self.products = self.allProducts.sorted {
             let price0 = Double($0.price.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)) ?? 0

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var name: String = "Alejandro"
-    @State private var phoneNumber: String = "3183544998"
-    @State private var username: String = "a.gonzalezd1"
+    @State private var name: String = UserDefaults.standard.string(forKey: "userName") ?? "name"
+    @State private var phoneNumber: String = UserDefaults.standard.string(forKey: "userPhone") ?? "phone"
+    @State private var username: String = UserDefaults.standard.string(forKey: "username") ?? "username"
+    @State private var email: String = UserDefaults.standard.string(forKey: "userEmail") ?? "email"
+    @State private var degree: String = UserDefaults.standard.string(forKey: "userDegree") ?? "degree"
     @State private var showAlert = false
     @StateObject private var profileController = ProfileViewController()
     
@@ -31,6 +33,7 @@ struct ProfileView: View {
             Text(title)
                 .font(.system(size: 17, weight: .bold, design: .default))
                 .foregroundColor(Color(red: 0.23, green: 0.23, blue: 0.23))
+                .frame(width: 75, alignment: .leading)
             
             Text(value)
                 .font(.custom("Archivo-Regular", size: 17))
@@ -49,7 +52,7 @@ struct ProfileView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 91.45, height: 133.55)
                     .clipped()
-                Text(username)
+                Text(name)
                 Spacer()
             }
             .padding([.leading, .trailing], 15)
@@ -64,8 +67,10 @@ struct ProfileView: View {
             .padding([.leading, .trailing], 15)
             
             infoRow(title: "Name:", value: name)
-            infoRow(title: "Phone:", value: phoneNumber)
             infoRow(title: "User:", value: username)
+            infoRow(title: "Email:", value: email)
+            infoRow(title: "Phone:", value: phoneNumber)
+            infoRow(title: "Degree:", value: degree)
             
             HStack {
                 Text("In Trouble?")

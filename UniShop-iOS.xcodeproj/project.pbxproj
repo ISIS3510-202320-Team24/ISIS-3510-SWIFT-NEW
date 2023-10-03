@@ -55,6 +55,7 @@
 		BD56759B2ACB741300E34048 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675932ACB741300E34048 /* LoginView.swift */; };
 		BD56759D2ACBC69900E34048 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56759C2ACBC69900E34048 /* ProfileViewController.swift */; };
 		BD5675A12ACBE38D00E34048 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */; };
+		BD7E813E2ACCA810009116D7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E813D2ACCA810009116D7 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,8 @@
 		BD5675932ACB741300E34048 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BD56759C2ACBC69900E34048 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BD7E813D2ACCA810009116D7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		BD7E81402ACCA92A009116D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +142,8 @@
 		BD5675042ACB252800E34048 /* UniShop-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				BD7E81402ACCA92A009116D7 /* Info.plist */,
+				BD7E813F2ACCA8E4009116D7 /* Managers */,
 				BD56757E2ACB73D400E34048 /* Utilities */,
 				BD56756A2ACB738200E34048 /* Resources */,
 				BD5675602ACB734A00E34048 /* Helper */,
@@ -392,6 +397,14 @@
 			path = LoginView;
 			sourceTree = "<group>";
 		};
+		BD7E813F2ACCA8E4009116D7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BD7E813D2ACCA810009116D7 /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -505,6 +518,7 @@
 				BD5675542ACB72E600E34048 /* CheckboxField.swift in Sources */,
 				BD5675A12ACBE38D00E34048 /* HomeViewModel.swift in Sources */,
 				BD56753D2ACB6EA100E34048 /* PostsView.swift in Sources */,
+				BD7E813E2ACCA810009116D7 /* LocationManager.swift in Sources */,
 				BD56759D2ACBC69900E34048 /* ProfileViewController.swift in Sources */,
 				BD56759B2ACB741300E34048 /* LoginView.swift in Sources */,
 				BD5675372ACB598600E34048 /* ProductDetailViewModel.swift in Sources */,
@@ -643,7 +657,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -672,7 +688,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

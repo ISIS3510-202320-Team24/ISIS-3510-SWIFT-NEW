@@ -1,66 +1,94 @@
 import SwiftUI
 
+struct UserLog: Codable {
+    let degree: String?
+    let email: String
+    let id: String
+    let name: String
+    let password: String
+    let phone: String
+    let username: String
+}
+
+struct UsersResponseLog: Codable {
+    let users: [UserLog]
+}
+
 struct LoginView: View {
-    // Función para realizar la solicitud de registro (SignUp)
-    func signUp() {
-        // Define la URL de la solicitud SignUp
-        let signUpURL = URL(string: "https://creative-mole-46.hasura.app/api/rest/users/signup")!
-
-        // Define el cuerpo de la solicitud como un diccionario JSON
-        let signUpData: [String: Any] = [
-            "object": [
-                "email": loginViewModel.emailText,
-                "name": "Test User",
-                "password": loginViewModel.passwordText,
-                "phone": "123-456-78904",
-                "username": "testuser4"
-            ]
-        ]
-
-        // Convierte el diccionario en datos JSON
-        guard let signUpJSON = try? JSONSerialization.data(withJSONObject: signUpData) else {
-            return
-        }
-
-        var request = URLRequest(url: signUpURL)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
-        request.httpBody = signUpJSON
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        if let dataDict = json["data"] as? [String: Any], let users = dataDict["users"] as? [[String: Any]], !users.isEmpty {
-                            // Login exitoso: Se encontraron usuarios en la respuesta JSON
-                            if let id = users[0]["id"] as? String {
-                                // Guarda el ID del usuario en UserDefaults
-                                UserDefaults.standard.set(id, forKey: "userID")
-                            }
-                            print("Login exitoso")
-                            DispatchQueue.main.async {
-                                navigateToHome = true
-                            }
-                        } else {
-                            // Login no exitoso: No se encontraron usuarios en la respuesta JSON
-                            print("Login no exitoso")
-                        }
-                    }
-
-
-                } else if let error = error {
-                    // Maneja el error, por ejemplo, muestra un mensaje de error al usuario
-                    print("SignUp Error: \(error)")
-                }
-            }.resume()
-        }
-
-
     @State private var navigateToSignUp = false
     @State private var navigateToHome = false
     @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.presentationMode) var presentationMode:
     Binding<PresentationMode>
+    
+    func signUp() {
+        // Ensure your URL is correct.
+        guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/users/all") else {
+            fatalError("Invalid URL")
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            do {
+                let usersResponse = try JSONDecoder().decode(UsersResponseLog.self, from: data)
+                print("Decoding successful: \(usersResponse)")
+                
+                if let user = usersResponse.users.first(where: { $0.email == loginViewModel.emailText && $0.password == loginViewModel.passwordText }) {
+                    print("User found: \(user)")
+                    navigateToHome=true
+                    saveUserLocally(user: user)
+                } else {
+                    print(loginViewModel.emailText)
+                    print(loginViewModel.passwordText)
+                    print("Invalid credentials")
+                }
+            } catch {
+                print("Error during JSON serialization: \(error.localizedDescription)")
+                
+                if let decodingError = error as? DecodingError {
+                    print("Decoding error: \(decodingError)")
+                    switch decodingError {
+                    case .keyNotFound(let key, _):
+                        print("Key not found: \(key)")
+                    case .valueNotFound(let type, _):
+                        print("Value not found for type: \(type)")
+                    case .typeMismatch(let type, _):
+                        print("Type mismatch for type: \(type)")
+                    case .dataCorrupted(let context):
+                        print("Data corrupted: \(context)")
+                    @unknown default:
+                        print("Unknown decoding error")
+                    }
+                }
+                
+                print(String(data: data, encoding: .utf8) ?? "Data could not be printed")
+            }
+
+
+        }
+
+        task.resume()
+    }
+
+    func saveUserLocally(user: UserLog) {
+        let defaults = UserDefaults.standard
+        defaults.set(user.id, forKey: "userID")
+        defaults.set(user.email, forKey: "userEmail")
+        defaults.set(user.name, forKey: "userName")
+        defaults.set(user.username, forKey: "username")
+        defaults.set(user.phone, forKey: "userPhone")
+        defaults.set(user.degree, forKey: "userDegree")
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -176,9 +204,8 @@ struct LoginView: View {
                                 TextField(StringConstants.kMsgInstitutionalE,
                                           text: $loginViewModel.emailText)
                                 .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                .foregroundColor(ColorConstants.Gray700)
+                                .foregroundColor(.black)
                                 .padding()
-                                .keyboardType(.emailAddress)
                             }
                             .onChange(of: loginViewModel.emailText) { newValue in
                                 
@@ -209,7 +236,7 @@ struct LoginView: View {
                                 SecureField(StringConstants.kLblPassword,
                                             text: $loginViewModel.passwordText)
                                 .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                .foregroundColor(ColorConstants.Gray700)
+                                .foregroundColor(.black)
                                 .padding()
                                 .keyboardType(.default)
                             }
@@ -249,7 +276,6 @@ struct LoginView: View {
                             .padding(.horizontal, getRelativeWidth(33.0))
                         Button(action: { 
                             signUp()
-                            navigateToHome = true
                         }, label: {
                             HStack(spacing: 0) {
                                 Text(StringConstants.kLblLogin2)

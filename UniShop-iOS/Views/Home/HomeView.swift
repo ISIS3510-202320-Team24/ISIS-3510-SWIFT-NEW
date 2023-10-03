@@ -26,7 +26,7 @@ struct HomeView: View {
             return viewModel.products
         } else {
             return viewModel.products.filter { product in
-                product.name.localizedCaseInsensitiveContains(searchText)
+                product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
             }
         }
     }

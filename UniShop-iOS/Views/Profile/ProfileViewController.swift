@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import CoreLocation
+import MapKit
 
 struct Alert: Codable {
     var danger: Int
@@ -8,57 +10,12 @@ struct Alert: Codable {
     var user_id: String
 }
 
-import Foundation
-import SwiftUI
-import CoreLocation
-
-class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
-    private var locationManager = CLLocationManager()
-    @Published var location: CLLocation?
-    
-    override init() {
-        super.init()
-        self.locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    
-    func requestWhenInUseAuthorization() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last
-    }
-    
-    // This delegate method is called if the app is unable to retrieve a location value.
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // You might handle them somehow, perhaps with an alert that tells the user what is wrong.
-        // Perhaps guide them to settings app if location services are restricted or denied.
-        // You would do this by opening a URL to app settings like so:
-        // UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-    }
-    
-    // Handling when the user changes the authorization for location usage
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted, .denied:
-            // Here you might present an alert to the user explaining why you need location services and encourage them to go to settings and turn on location services.
-            break
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation()
-        default:
-            break
-        }
-    }
-}
-
 
 class ProfileViewController: ObservableObject {
     
     @Published var showingAlert = false
     @Published var alertMessage = ""
-    @Published var locationManager = LocationManager()
+    private var locationManager = LocationManager()
     
     var latitude: String {
         return "\(locationManager.location?.coordinate.latitude ?? 4.60142035)"
@@ -80,7 +37,7 @@ class ProfileViewController: ObservableObject {
             "danger": 5,
             "latitude": latitude,
             "longitude": longitude,
-            "user_id": "4e8287ff-397b-4c28-ba38-310b81dcdf1a"
+            "user_id": UserDefaults.standard.string(forKey: "userID") ?? "id"
         ]
             
         let requestBody: [String: Any] = ["object": alertObject]
