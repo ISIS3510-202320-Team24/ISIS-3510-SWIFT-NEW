@@ -52,9 +52,6 @@ struct NavbarView: View {
         VStack {
             ZStack {
                 Circle()
-                    .fill(Color.white)
-                    .frame(width: 70, height: 70)
-                Circle()
                     .fill(activeTab == 2 ? Color(red: 1, green: 0.776, blue: 0) : Color(red: 0.30, green: 0.30, blue: 0.30))
                     .frame(width: 50, height: 50)
                 Image(uiImage: (UIImage(named: iconName(for: "Create")) ?? UIImage()).withRenderingMode(.alwaysTemplate))
@@ -63,13 +60,13 @@ struct NavbarView: View {
                     .frame(width: 28, height: 28)
                     .foregroundColor(.white)
             }
-            .offset(y: -5)
+            .offset(y: -13)
             
             Text("Create")
                 .font(.system(size: 16))
                 .foregroundColor(Color(red: 0.296, green: 0.335, blue: 0.402))
         }
-        .padding(.bottom, 39)
+        .padding(.bottom, 19)
     }
     
     func iconName(for label: String) -> String {
