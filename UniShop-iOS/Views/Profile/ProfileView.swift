@@ -107,7 +107,16 @@ struct ProfileView: View {
             }
             .padding(.top, 10)
             .padding(.horizontal)
-
+            
+            HStack {
+                Text("* you must allow UniShop to access your location")
+                    .font(.system(size: 14))
+                    .padding(.horizontal, 16)
+                    .foregroundColor(Color(red: 0.15, green: 0.15, blue: 0.15))
+                
+                Spacer()
+            }
+            
             Spacer()
         }
         .padding(.top, 25)
