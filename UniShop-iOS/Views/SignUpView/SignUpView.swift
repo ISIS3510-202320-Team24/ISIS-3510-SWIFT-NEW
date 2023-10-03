@@ -58,7 +58,7 @@ struct SignUpView: View {
                                 Text(StringConstants.kLblUniShop)
                                     .font(FontScheme.kOutfitMedium(size: getRelativeHeight(60.0)))
                                     .fontWeight(.medium)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color.black)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                     .frame(width: getRelativeWidth(241.0),
@@ -78,7 +78,7 @@ struct SignUpView: View {
                         Text(StringConstants.kMsgWelcomeToUnis)
                             .font(FontScheme.kOutfitRegular(size: getRelativeHeight(24.0)))
                             .fontWeight(.regular)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(217.0), height: getRelativeHeight(31.0),
@@ -94,7 +94,7 @@ struct SignUpView: View {
                                 TextField(StringConstants.kLblName,
                                           text: $signUpViewModel.tamdcText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .padding()
                                     .keyboardType(.alphabet)
                             }
@@ -281,19 +281,36 @@ struct SignUpView: View {
                                            height: getRelativeHeight(48.0), alignment: .center)
                             }
                         }
+                        HStack{
+                           
+                            Group {
+                                Picker("Selecciona tu carrera", selection: $signUpViewModel.selectedCarrera) {
+                                    ForEach(["ISIS", "MATE", "ADMIN", "IIND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
+                                        Text(carrera).tag(carrera)
+                                    }
+                                }
+                                .pickerStyle(MenuPickerStyle())
+                                .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
+                                       alignment: .leading )
+                                .padding(.top, getRelativeHeight(11.0))
+                                .padding(.horizontal, getRelativeWidth(29.0))
+                                .offset(x: -getRelativeHeight(-12))
+                                .foregroundColor(ColorConstants.Gray700)
+
+                            }; Spacer()}
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(401.0),
                            alignment: .leading)
                     VStack(alignment: .leading, spacing: 0) {
                         CheckboxField(idValue: StringConstants.kMsgIAcceptThePr,
                                       label: StringConstants.kMsgIAcceptThePr,
-                                      color: ColorConstants.Gray701,
+                                      color: Color.black,
                                       isMarked: $signUpViewModel.iaccepttheprCheckbox)
                             .minimumScaleFactor(0.5)
                             .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                    alignment: .leading)
-                            .overlay(RoundedCorners().stroke(ColorConstants.Gray701, lineWidth: 1))
-                            .background(RoundedCorners().fill(Color(red: 1, green: 0.776, blue: 0)))
+                            .overlay(RoundedCorners().stroke(Color.black, lineWidth: 1))
+                            .background(RoundedCorners().fill(Color.yellow))
                             .padding(.horizontal, getRelativeWidth(30.0))
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(47.0),
@@ -309,7 +326,9 @@ struct SignUpView: View {
                                         "name": signUpViewModel.tamdcText,
                                         "password": signUpViewModel.passwordText,
                                         "phone": signUpViewModel.rowflagofcolombiText,
-                                        "username": signUpViewModel.usernameText
+                                        "username": signUpViewModel.usernameText,
+                                        "degree":
+                                        signUpViewModel.selectedCarrera
                                     ]
                                 ]
                             
@@ -341,7 +360,8 @@ struct SignUpView: View {
                                                     JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                                                     print("2")
                                                     // Verificar si la respuesta indica un registro exitoso o no
-                                                    if 0==0{
+                                                    if true {
+                                                        print("3")
                                                         self.navigateToLogin = true
                                                         self.signUpViewModel.nextScreen = "LoginView"
                                                         print("Registro exitoso")
@@ -376,19 +396,19 @@ struct SignUpView: View {
                                 .fontWeight(.regular)
                                 .padding(.horizontal, getRelativeWidth(30.0))
                                 .padding(.vertical, getRelativeHeight(12.0))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color.black)
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.center)
                                 .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .center)
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
-                                    .fill(Color(red: 1, green: 0.776, blue: 0)))
+                                    .fill(Color.yellow))
                                 .padding(.horizontal, getRelativeWidth(29.0))
                         }
                         .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                alignment: .center)
                         .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                    bottomRight: 8.0)
-                                .fill(Color(red: 1, green: 0.776, blue: 0)))
+                            .fill(Color.yellow))
                         .padding(.horizontal, getRelativeWidth(29.0))
                         NavigationLink(destination: LoginView(), isActive: $navigateToLogin) {
                             EmptyView()
@@ -396,7 +416,7 @@ struct SignUpView: View {
                         Text(StringConstants.kMsgAlreadyHaveAn)
                             .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(13.0)))
                             .fontWeight(.regular)
-                            .foregroundColor(ColorConstants.Gray702)
+                            .foregroundColor(Color.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(194.0), height: getRelativeHeight(20.0),
@@ -413,7 +433,7 @@ struct SignUpView: View {
                     .padding(.bottom, getRelativeHeight(29.0))
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
-                .background(ColorConstants.WhiteA700)
+                .background(Color.white)
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
@@ -439,3 +459,4 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView()
     }
 }
+

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State public var selectedTab = 0
+    @State public var selectedTab = -1
     
     var body: some View {
         ZStack {
@@ -18,14 +18,16 @@ struct ContentView: View {
                 case 4:
                     ProfileView()
                 default:
-                    HomeView()
+                    ExploreView()
                 }
                 Spacer()
             }
-            NavbarView { index in
-                selectedTab = index
-            }
-            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 105) 
+            if (selectedTab != -1) {
+                NavbarView { index in
+                    selectedTab = index
+                    
+                }
+                .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 105)}
         }
     }
 }

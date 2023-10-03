@@ -30,22 +30,24 @@ struct LoginView: View {
 
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
-                    // Procesa la respuesta JSON
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        // Maneja la respuesta aquí
-                        if let users = json["users"] as? [Any], users.isEmpty {
-                            // No se encontraron usuarios, manejarlo aquí (respuesta vacía)
-                            print("No users found")
-                        } else {
-                            // Se encontraron usuarios, manejarlos aquí
-                            print("Users found")
-                            // Marca al usuario como logueado
-                            UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                            DispatchQueue.main.async {
-                                navigateToNewPost = true
+                        if let dataDict = json["data"] as? [String: Any], let users = dataDict["users"] as? [[String: Any]], !users.isEmpty {
+                            // Login exitoso: Se encontraron usuarios en la respuesta JSON
+                            if let id = users[0]["id"] as? String {
+                                // Guarda el ID del usuario en UserDefaults
+                                UserDefaults.standard.set(id, forKey: "userID")
                             }
+                            print("Login exitoso")
+                            DispatchQueue.main.async {
+                                navigateToHome = true
+                            }
+                        } else {
+                            // Login no exitoso: No se encontraron usuarios en la respuesta JSON
+                            print("Login no exitoso")
                         }
                     }
+
+
                 } else if let error = error {
                     // Maneja el error, por ejemplo, muestra un mensaje de error al usuario
                     print("SignUp Error: \(error)")
@@ -55,7 +57,7 @@ struct LoginView: View {
 
 
     @State private var navigateToSignUp = false
-    @State private var navigateToNewPost = false
+    @State private var navigateToHome = false
     @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.presentationMode) var presentationMode:
     Binding<PresentationMode>
@@ -80,7 +82,7 @@ struct LoginView: View {
                                                 .font(FontScheme
                                                     .kOutfitSemiBold(size: getRelativeHeight(24.0)))
                                                 .fontWeight(.semibold)
-                                                .foregroundColor(.black)
+                                                .foregroundColor(Color.black)
                                                 .minimumScaleFactor(0.5)
                                                 .multilineTextAlignment(.leading)
                                                 .frame(width: getRelativeWidth(153.0),
@@ -105,7 +107,7 @@ struct LoginView: View {
                                     Text(StringConstants.kMsgYouReAtUnian)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
                                         .fontWeight(.regular)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color.black)
                                         .minimumScaleFactor(0.5)
                                         .multilineTextAlignment(.leading)
                                         .frame(width: getRelativeWidth(180.0),
@@ -162,7 +164,7 @@ struct LoginView: View {
                         Text(StringConstants.kLblUniShop)
                             .font(FontScheme.kOutfitMedium(size: getRelativeHeight(60.0)))
                             .fontWeight(.medium)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(241.0), height: getRelativeHeight(76.0),
@@ -238,80 +240,99 @@ struct LoginView: View {
                         Text(StringConstants.kMsgForgetPassword)
                             .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
                             .fontWeight(.regular)
-                            .foregroundColor(.black)
+                            .foregroundColor(Color.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(107.0), height: getRelativeHeight(17.0),
                                    alignment: .topLeading)
                             .padding(.top, getRelativeHeight(5.0))
                             .padding(.horizontal, getRelativeWidth(33.0))
-                        Button(action: signUp) {
-                            Text("Sign Up")
-                                .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0))
-                                .background(
-                                    RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(Color(red: 1, green: 0.776, blue: 0))
-                                )
-                                .padding(.horizontal, getRelativeWidth(29.0))
-                        }
+                        Button(action: { 
+                            signUp()
+                            navigateToHome = true
+                        }, label: {
+                            HStack(spacing: 0) {
+                                Text(StringConstants.kLblLogin2)
+                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(18.0)))
+                                    .fontWeight(.regular)
+                                    .padding(.horizontal, getRelativeWidth(30.0))
+                                    .padding(.vertical, getRelativeHeight(12.0))
+                                    .foregroundColor(Color.black)
+                                    .minimumScaleFactor(0.5)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: getRelativeWidth(328.0),
+                                           height: getRelativeHeight(48.0), alignment: .center)
+                                    .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
+                                                               bottomLeft: 8.0, bottomRight: 8.0)
+                                        .fill(Color.yellow))
+                                    .padding(.horizontal, getRelativeWidth(29.0))
+                                NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
+                                    EmptyView()
+                                }
+                            }
+                        })
+                        .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
+                               alignment: .center)
+                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                   bottomRight: 8.0)
+                            .fill(Color.yellow))
                         .padding(.top, getRelativeHeight(23.0))
                         .padding(.horizontal, getRelativeWidth(29.0))
-
                         HStack {
                             Divider()
-                                .frame(width: getRelativeWidth(105.0), height: 1.0)
-                                .background(ColorConstants.Gray500)
+                                .frame(width: getRelativeWidth(105.0), height: (1.0),
+                                       alignment: .bottom)
+                                .background(Color.black)
                                 .padding(.top, getRelativeHeight(9.0))
                                 .padding(.bottom, getRelativeHeight(6.0))
                             Text(StringConstants.kLblOrSignUpWith)
                                 .font(FontScheme.kOutfitRegular(size: getRelativeHeight(12.0)))
                                 .fontWeight(.regular)
-                                .foregroundColor(ColorConstants.Gray600)
+                                .foregroundColor(Color.black)
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
-                                .frame(width: getRelativeWidth(80.0), height: getRelativeHeight(16.0))
+                                .frame(width: getRelativeWidth(80.0), height: getRelativeHeight(16.0),
+                                       alignment: .topLeading)
                                 .padding(.leading, getRelativeWidth(4.0))
                             Divider()
-                                .frame(width: getRelativeWidth(105.0), height: getRelativeHeight(1.0))
-                                .background(ColorConstants.Gray500)
+                                .frame(width: getRelativeWidth(105.0), height: getRelativeHeight(1.0),
+                                       alignment: .bottom)
+                                .background(Color.black)
                                 .padding(.top, getRelativeHeight(9.0))
                                 .padding(.bottom, getRelativeHeight(6.0))
                                 .padding(.leading, getRelativeWidth(4.0))
                             Spacer()
                         }
-                        .frame(width: getRelativeWidth(298.0), height: getRelativeHeight(16.0))
+                        .frame(width: getRelativeWidth(298.0), height: getRelativeHeight(16.0),
+                               alignment: .center)
                         .padding(.top, getRelativeHeight(35.0))
                         .padding(.horizontal, getRelativeWidth(29.0))
-
                         ZStack {
                             Image("img_image1_34x35")
                                 .resizable()
-                                .frame(width: getRelativeWidth(35.0), height: getRelativeHeight(34.0))
+                                .frame(width: getRelativeWidth(35.0), height: getRelativeHeight(34.0),
+                                       alignment: .center)
                                 .scaledToFit()
                                 .clipped()
                                 .padding(.vertical, getRelativeHeight(7.0))
                                 .padding(.horizontal, getRelativeWidth(26.0))
                         }
-
                         .hideNavigationBar()
-                        .frame(width: getRelativeWidth(88.0), height: getRelativeHeight(48.0), alignment: .center)
-                        .background(
-                            RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
-                                .fill(Color.white)
-                        )
-                        .shadow(color: .black, radius: 1, x: 0, y: 1)
+                        .frame(width: getRelativeWidth(88.0), height: getRelativeHeight(48.0),
+                               alignment: .center)
+                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                   bottomRight: 8.0)
+                            .fill(ColorConstants.WhiteA700))
+                        .shadow(color: Color.black, radius: 1, x: 0, y: 1)
                         .padding(.top, getRelativeHeight(33.0))
-                        .padding(.leading, getRelativeWidth(29.0))
-                        .padding(.trailing, getRelativeWidth(29.0))
-
+                        .padding(.horizontal, getRelativeWidth(29.0))
                         NavigationLink(destination: SignUpView(), isActive: $navigateToSignUp) {
                             EmptyView()
                         }
-
                         Text(StringConstants.kMsgNotRegisterYe)
                             .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(13.0)))
                             .fontWeight(.regular)
-                            .foregroundColor(ColorConstants.Gray702)
+                            .foregroundColor(Color.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(193.0), height: getRelativeHeight(20.0),
@@ -345,3 +366,4 @@ struct LoginView_Previews: PreviewProvider {
         LoginView()
     }
 }
+
