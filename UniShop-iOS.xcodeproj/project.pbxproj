@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		058525A92ACBDF0A00CF7D81 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058525A82ACBDF0A00CF7D81 /* CustomPickerView.swift */; };
 		BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */; };
 		BD56750A2ACB252A00E34048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD5675092ACB252A00E34048 /* Assets.xcassets */; };
 		BD5675192ACB266100E34048 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675182ACB266100E34048 /* HomeView.swift */; };
@@ -59,7 +58,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		058525A82ACBDF0A00CF7D81 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
 		BD5675022ACB252800E34048 /* UniShop-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniShop-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniShop_iOSApp.swift; sourceTree = "<group>"; };
 		BD5675092ACB252A00E34048 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 			children = (
 				BD56758F2ACB741300E34048 /* SignUpViewModel.swift */,
 				BD5675902ACB741300E34048 /* SignUpView.swift */,
-				058525A82ACBDF0A00CF7D81 /* CustomPickerView.swift */,
 			);
 			path = SignUpView;
 			sourceTree = "<group>";
@@ -492,7 +489,6 @@
 				BD5675682ACB735B00E34048 /* ActivityLoader.swift in Sources */,
 				BD56755C2ACB732600E34048 /* EncodableExtension.swift in Sources */,
 				BD5675192ACB266100E34048 /* HomeView.swift in Sources */,
-				058525A92ACBDF0A00CF7D81 /* CustomPickerView.swift in Sources */,
 				BD56754F2ACB728100E34048 /* StringScheme.swift in Sources */,
 				BD5675862ACB73D400E34048 /* CameraPermission.swift in Sources */,
 				BD56755D2ACB732600E34048 /* UINavigationController.swift in Sources */,
