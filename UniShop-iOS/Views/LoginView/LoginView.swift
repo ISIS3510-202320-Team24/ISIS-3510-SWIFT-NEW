@@ -266,7 +266,7 @@ struct LoginView: View {
                                                                bottomLeft: 8.0, bottomRight: 8.0)
                                         .fill(Color.yellow))
                                     .padding(.horizontal, getRelativeWidth(29.0))
-                                NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
+                                NavigationLink(destination: ContentView(), isActive: $navigateToHome) {
                                     EmptyView()
                                 }
                             }

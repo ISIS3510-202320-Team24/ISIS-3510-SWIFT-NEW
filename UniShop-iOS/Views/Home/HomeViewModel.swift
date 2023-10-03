@@ -36,16 +36,16 @@ class HomeViewModel: ObservableObject {
     }
 
     func startTimer() {
-        timerCancellable = Timer.publish(every: 15, on: .main, in: .common)
+        timerCancellable = Timer.publish(every: 45, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.elapsedTime += 15
+                self.elapsedTime += 1
                 
-                if self.elapsedTime >= 60 {
+                if self.elapsedTime >= 180 {
                     self.timerCancellable?.cancel()
-                    print("Timer stopped after 200 seconds")
+                    print("Timer stopped")
                 } else {
                     self.fetchAlerts()
                 }
