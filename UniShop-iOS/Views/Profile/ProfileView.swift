@@ -11,6 +11,8 @@ struct ProfileView: View {
     @State private var name: String = "Alejandro"
     @State private var phoneNumber: String = "3183544998"
     @State private var username: String = "a.gonzalezd1"
+    @State private var showAlert = false
+    @StateObject private var profileController = ProfileViewController()
     
     init() {
         let navBarAppearance = UINavigationBarAppearance()
@@ -85,7 +87,7 @@ struct ProfileView: View {
             .padding([.leading, .trailing], 15)
             
             Button(action: {
-                // Your action here
+                profileController.sendAlertAPI()
             }) {
                 Text("HELP!")
                     .font(.system(size: 22, weight: .bold, design: .default))
@@ -94,6 +96,9 @@ struct ProfileView: View {
                     .background(Color(red: 1, green: 0.776, blue: 0))
                     .foregroundColor(.white)
                     .cornerRadius(8)
+            }
+            .alert(isPresented: $profileController.showingAlert) {
+                SwiftUI.Alert(title: Text("Alert Sent"), message: Text(profileController.alertMessage), dismissButton: .default(Text("OK")))
             }
             .padding(.top, 10)
             .padding(.horizontal)

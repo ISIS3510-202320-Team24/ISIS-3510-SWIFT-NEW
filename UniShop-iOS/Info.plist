@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key>
+	<string>UniShop</string>
+	<key>CFBundleIdentifier</key>
+	<string>unishop</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location to allow the &quot;I need help&quot; functionality.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need continuous access to your location to allow the &quot;I need help&quot; functionality.</string>
+</dict>
+</plist>

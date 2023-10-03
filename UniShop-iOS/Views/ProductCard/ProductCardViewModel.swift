@@ -85,7 +85,6 @@ class ProductCardViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.allProducts = response.post
                     self.products = self.allProducts
-                    print("Products fetched: \(self.products)")  // Debugging output
                     self.isLoading = false
                 }
             } catch {

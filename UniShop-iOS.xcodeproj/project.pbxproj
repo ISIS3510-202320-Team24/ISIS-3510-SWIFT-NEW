@@ -54,6 +54,8 @@
 		BD5675992ACB741300E34048 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675902ACB741300E34048 /* SignUpView.swift */; };
 		BD56759A2ACB741300E34048 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675922ACB741300E34048 /* LoginViewModel.swift */; };
 		BD56759B2ACB741300E34048 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675932ACB741300E34048 /* LoginView.swift */; };
+		BD56759D2ACBC69900E34048 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56759C2ACBC69900E34048 /* ProfileViewController.swift */; };
+		BD5675A12ACBE38D00E34048 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,8 @@
 		BD5675902ACB741300E34048 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		BD5675922ACB741300E34048 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		BD5675932ACB741300E34048 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BD56759C2ACBC69900E34048 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				BD5675182ACB266100E34048 /* HomeView.swift */,
+				BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				BD5675242ACB32A400E34048 /* ProfileView.swift */,
+				BD56759C2ACBC69900E34048 /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -501,7 +507,9 @@
 				BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */,
 				BD5675502ACB728100E34048 /* ColorConstants.swift in Sources */,
 				BD5675542ACB72E600E34048 /* CheckboxField.swift in Sources */,
+				BD5675A12ACBE38D00E34048 /* HomeViewModel.swift in Sources */,
 				BD56753D2ACB6EA100E34048 /* PostsView.swift in Sources */,
+				BD56759D2ACBC69900E34048 /* ProfileViewController.swift in Sources */,
 				BD56759B2ACB741300E34048 /* LoginView.swift in Sources */,
 				BD5675372ACB598600E34048 /* ProductDetailViewModel.swift in Sources */,
 			);
@@ -639,6 +647,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -667,6 +676,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

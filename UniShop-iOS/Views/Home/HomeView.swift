@@ -9,6 +9,17 @@ struct HomeView: View {
     private var navigationBarHeight: CGFloat {
         return UINavigationBar.appearance().frame.height
     }
+    @ObservedObject var hViewModel = HomeViewModel()
+    @State private var showAlert = false
+    
+    var lastAlertDescription: String {
+        guard let lastAlert = hViewModel.alerts.last else { return "" }
+        return """
+                User: \(lastAlert.user.name) (\(lastAlert.user.username))
+                Latitude: \(lastAlert.latitude)
+                Longitude: \(lastAlert.longitude)
+            """
+    }
     
     var filteredProducts: [Product] {
         if searchText.isEmpty {
@@ -105,10 +116,36 @@ struct HomeView: View {
                 .background(Color.white)
                 .offset(y: scrollOffset > 0 ? -scrollOffset : 0)
             }
+            .alert(isPresented: $hViewModel.showAlert) {
+                if let lastAlert = hViewModel.alerts.last {
+                    print("Show Alert: true")
+                    return SwiftUI.Alert(
+                        title: Text("Someone Needs Help!"),
+                        message: Text(lastAlertDescription),
+                        dismissButton: .default(Text("OK")) {
+                            hViewModel.showAlert = false
+                        }
+                    )
+                } else {
+                    print("Show Alert: false")
+                    return SwiftUI.Alert(
+                        title: Text(""),
+                        message: Text("")
+                    )
+                }
+            }
+
             .background(Color.clear)
             .onAppear {
                 viewModel.fetchProducts()
+                hViewModel.fetchAlerts()
+                
+                if !hViewModel.alerts.isEmpty {
+                    showAlert = true
+                    print("ShowAlert set to true")
+                }
             }
+
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .onPreferenceChange(ViewOffsetKey.self) {
