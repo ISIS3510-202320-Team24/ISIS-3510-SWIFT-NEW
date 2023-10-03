@@ -34,8 +34,35 @@ struct User: Codable {
 
 class ProductCardViewModel: ObservableObject {
     @Published var products = [Product]()
+    @Published var allProducts = [Product]()
+    @Published var isLoading: Bool = false
+    @Published var loadingMessage: String = ""
 
+    func fetchRecommendedProducts() {
+        self.products = []
+        self.isLoading = true
+        self.loadingMessage = "Searching for products that suit you..."
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.products = self.allProducts.filter { product in
+                return product.degree == "ISIS"
+            }
+            self.isLoading = false
+        }
+    }
+    
+    func fetchBargainProducts() {
+        self.products = self.allProducts.sorted {
+            let price0 = Double($0.price.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)) ?? 0
+            let price1 = Double($1.price.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)) ?? 0
+            return price0 < price1
+        }
+    }
+    
     func fetchProducts() {
+        self.products = []
+        self.loadingMessage = "Loading products..."
+        self.isLoading = true
         guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/post/all") else { return }
 
         var request = URLRequest(url: url)
@@ -56,8 +83,10 @@ class ProductCardViewModel: ObservableObject {
             do {
                 let response = try JSONDecoder().decode(Response.self, from: data)
                 DispatchQueue.main.async {
-                    self.products = response.post
+                    self.allProducts = response.post
+                    self.products = self.allProducts
                     print("Products fetched: \(self.products)")  // Debugging output
+                    self.isLoading = false
                 }
             } catch {
                 print("Decoding error: \(error)")

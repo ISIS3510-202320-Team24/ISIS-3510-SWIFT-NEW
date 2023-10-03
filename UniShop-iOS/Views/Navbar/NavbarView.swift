@@ -3,6 +3,7 @@ import SwiftUI
 struct NavbarView: View {
     
     var buttonTappedHandler: ((Int) -> Void)?
+    @State var activeTab = 0
     let labels = ["Home", "Posts", "Create", "Favorites", "Profile"]
     
     var body: some View {
@@ -11,6 +12,7 @@ struct NavbarView: View {
                 HStack(spacing: 0) {
                     ForEach(Array(labels.enumerated()), id: \.offset) { index, label in
                         Button(action: {
+                            activeTab = index
                             buttonTappedHandler?(index)
                         }) {
                             if label != "Create" {
@@ -20,7 +22,7 @@ struct NavbarView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 28, height: 28)
-                                        .foregroundColor(Color(red: 0.30, green: 0.30, blue: 0.30))
+                                        .foregroundColor(index == activeTab ? Color(red: 1, green: 0.776, blue: 0) : Color(red: 0.30, green: 0.30, blue: 0.30))
                                     
                                     Text(label)
                                         .font(.system(size: 16))
@@ -53,7 +55,7 @@ struct NavbarView: View {
                     .fill(Color.white)
                     .frame(width: 70, height: 70)
                 Circle()
-                    .fill(Color(red: 1, green: 0.776, blue: 0))
+                    .fill(activeTab == 2 ? Color(red: 1, green: 0.776, blue: 0) : Color(red: 0.30, green: 0.30, blue: 0.30))
                     .frame(width: 50, height: 50)
                 Image(uiImage: (UIImage(named: iconName(for: "Create")) ?? UIImage()).withRenderingMode(.alwaysTemplate))
                     .resizable()

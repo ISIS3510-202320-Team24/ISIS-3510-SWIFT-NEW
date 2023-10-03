@@ -36,11 +36,11 @@ struct ProductDetailView: View {
     private func infoRow(title: String, value: String) -> some View {
         HStack {
             Text(title)
-                .font(.system(size: 16, weight: .bold, design: .default))
+                .font(.system(size: 17, weight: .bold, design: .default))
                 .foregroundColor(Color(red: 0.23, green: 0.23, blue: 0.23))
             
             Text(value)
-                .font(.custom("Archivo-Regular", size: 16))
+                .font(.custom("Archivo-Regular", size: 17))
                 .foregroundColor(Color(.darkGray))
         }
         .padding([.leading, .trailing], 15)
@@ -101,7 +101,7 @@ struct ProductDetailView: View {
         .onAppear {
             viewModel.fetchProduct(with: productId)
         }
-        .navigationBarTitle(viewModel.product?.name ?? "Loading...", displayMode: .inline)
+        .navigationBarTitle(viewModel.product?.name ?? "Product Detail", displayMode: .inline)
         .background(Color.white)
         .navigationBarTitleDisplayMode(.inline)
         .accentColor(.yellow)

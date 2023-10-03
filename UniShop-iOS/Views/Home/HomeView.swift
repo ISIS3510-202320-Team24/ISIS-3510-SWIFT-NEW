@@ -2,11 +2,22 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = ProductCardViewModel()
-    var categories = ["Recommended", "Category", "Subjects", "Genre", "Favorites"]
+    var categories = ["All Products", "Recommended", "Bargains"]
     @State private var searchText: String = ""
     @State private var scrollOffset: CGFloat = 0
+    @State private var selectedCategory: String = "All Products"
     private var navigationBarHeight: CGFloat {
         return UINavigationBar.appearance().frame.height
+    }
+    
+    var filteredProducts: [Product] {
+        if searchText.isEmpty {
+            return viewModel.products
+        } else {
+            return viewModel.products.filter { product in
+                product.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
 
     var body: some View {
@@ -15,7 +26,7 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                            ForEach(viewModel.products, id: \.name) { product in
+                            ForEach(filteredProducts, id: \.name) { product in
                                 ZStack {
                                     ProductCardView(product: product)
                                 }
@@ -30,6 +41,26 @@ struct HomeView: View {
                     Color.clear.preference(key: ViewOffsetKey.self,
                                            value: -$0.frame(in: .named("scroll")).minY)
                 })
+                
+                if viewModel.isLoading {
+                    ZStack {
+                        Color.black.opacity(0.01)
+                            .ignoresSafeArea()
+                        
+                        VStack(spacing: 20) {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .yellow))
+                                .scaleEffect(2.0, anchor: .center)
+                                .padding(.bottom, 15)
+
+                            Text(viewModel.loadingMessage)
+                                .foregroundColor(.black)
+                                .font(.system(size: 18))
+                        }
+                        .padding(.top, 125)
+                    }
+                }
+                
                 VStack {
                     TextField("Search Products", text: $searchText)
                         .padding()
@@ -39,7 +70,7 @@ struct HomeView: View {
                         .padding(.top, 10)
                     
                     HStack {
-                        Text("Recently Added")
+                        Text(selectedCategory)
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
@@ -51,14 +82,23 @@ struct HomeView: View {
                     VStack {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
-                                ForEach(categories, id: \.self) {
-                                    category in
-                                    DropdownView(labelText: category)
+                                ForEach(categories, id: \.self) { category in
+                                    DropdownView(labelText: category, selectedCategory: $selectedCategory)
                                 }
                             }
                         }
                         .padding([.leading, .trailing], 13)
                     }
+                    .onChange(of: selectedCategory) { newValue in
+                        if newValue == "Recommended" {
+                            viewModel.fetchRecommendedProducts()
+                        } else if (newValue == "Bargains") {
+                            viewModel.fetchBargainProducts()
+                        } else {
+                            viewModel.fetchProducts()
+                        }
+                    }
+
                 }
                 .padding(.top, scrollOffset > 0 ? 0 : -scrollOffset)
                 .padding(.bottom, 10 + navigationBarHeight)
@@ -81,25 +121,32 @@ struct HomeView: View {
 
 struct DropdownView: View {
     var labelText: String
+    @Binding var selectedCategory: String
     
     var body: some View {
-        HStack {
-            Text(labelText)
-                .font(.system(size: 16))
-                .foregroundColor(.black)
-            Spacer()
-            
-            if (labelText == "Recommended") {
-                Image(systemName: "heart")
-            } else {
-                Image(systemName: "chevron.down")
+        Button(action: {
+            selectedCategory = labelText
+        }) {
+            HStack {
+                Text(labelText.capitalized)
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+                Spacer()
+                
+                if (labelText == "Recommended") {
+                    Image(systemName: "star")
+                } else if (labelText == "Bargains") {
+                    Image(systemName: "dollarsign.circle")
+                }
             }
+            .padding()
+            .background(selectedCategory == labelText ? Color.yellow : Color(red: 0.933, green: 0.933, blue: 0.933))
+            .cornerRadius(6)
         }
-        .padding()
-        .background(labelText == "Recommended" ? Color(red: 1, green: 0.776, blue: 0, opacity: 0.7) : Color(red: 0.933, green: 0.933, blue: 0.933))
-        .cornerRadius(6)
+        .buttonStyle(PlainButtonStyle())
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
