@@ -27,7 +27,7 @@ struct ContentView: View {
             NavbarView { index in
                 selectedTab = index
             }
-            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 105)
+            .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 90)
         }
         .hideNavigationBar()
     }
