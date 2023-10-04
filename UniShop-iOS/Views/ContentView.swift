@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State public var selectedTab = 0
-    
+    /*
+     Content view traffic start*/
     var body: some View {
         ZStack {
             VStack {
