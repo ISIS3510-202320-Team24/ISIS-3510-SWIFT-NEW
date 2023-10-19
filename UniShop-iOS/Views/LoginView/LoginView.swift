@@ -15,6 +15,7 @@ struct UsersResponseLog: Codable {
 }
 
 struct LoginView: View {
+    @State private var showError = false
     @State private var navigateToSignUp = false
     @State private var navigateToHome = false
     @StateObject var loginViewModel = LoginViewModel()
@@ -35,6 +36,8 @@ struct LoginView: View {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                // Aquí puedes mostrar el mensaje de error
+                loginViewModel.showError = true // Paso 2
                 return
             }
             
@@ -44,16 +47,17 @@ struct LoginView: View {
                 
                 if let user = usersResponse.users.first(where: { $0.email == loginViewModel.emailText && $0.password == loginViewModel.passwordText }) {
                     print("User found: \(user)")
-                    navigateToHome=true
+                    navigateToHome = true
                     saveUserLocally(user: user)
                 } else {
                     print(loginViewModel.emailText)
                     print(loginViewModel.passwordText)
                     print("Invalid credentials")
+                    // Aquí puedes mostrar el mensaje de error
+                    loginViewModel.showError = true // Paso 2
                 }
             } catch {
                 print("Error during JSON serialization: \(error.localizedDescription)")
-                
                 if let decodingError = error as? DecodingError {
                     print("Decoding error: \(decodingError)")
                     switch decodingError {
@@ -69,16 +73,15 @@ struct LoginView: View {
                         print("Unknown decoding error")
                     }
                 }
-                
                 print(String(data: data, encoding: .utf8) ?? "Data could not be printed")
+                // Aquí puedes mostrar el mensaje de error
+                loginViewModel.showError = true // Paso 2
             }
-
-
         }
-
+        
         task.resume()
     }
-
+    
     func saveUserLocally(user: UserLog) {
         let defaults = UserDefaults.standard
         defaults.set(user.id, forKey: "userID")
@@ -91,297 +94,294 @@ struct LoginView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                ZStack {
-                    VStack {
-                        ZStack(alignment: .topTrailing) {
-                            Image("img_ellipse48_152x390")
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width,
-                                       height: getRelativeHeight(152.0), alignment: .center)
-                                .scaledToFit()
-                                .clipped()
-                                .offset(y: -getRelativeHeight(100))
-                            HStack {
-                                VStack(alignment: .leading, spacing: 0) {
-                                    HStack {
+            ScrollView{
+                VStack {
+                    ZStack {
+                        VStack {
+                            ZStack(alignment: .topTrailing) {
+                                Image("img_ellipse48_152x390")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width,
+                                           height: getRelativeHeight(152.0), alignment: .center)
+                                    .scaledToFit()
+                                    .clipped()
+                                    .offset(y: -getRelativeHeight(100))
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 0) {
                                         HStack {
-                                            Text(StringConstants.kLblLoginAccount)
-                                                .font(FontScheme
-                                                    .kOutfitSemiBold(size: getRelativeHeight(24.0)))
-                                                .fontWeight(.semibold)
-                                                .foregroundColor(Color.black)
-                                                .minimumScaleFactor(0.5)
-                                                .multilineTextAlignment(.leading)
-                                                .frame(width: getRelativeWidth(153.0),
-                                                       height: getRelativeHeight(31.0),
-                                                       alignment: .topLeading)
-                                            Spacer()
-                                            Image("img_user")
-                                                .resizable()
-                                                .frame(width: getRelativeWidth(16.0),
-                                                       height: getRelativeHeight(15.0),
-                                                       alignment: .center)
-                                                .scaledToFit()
-                                                .clipped()
-                                                .padding(.top, getRelativeHeight(6.0))
-                                                .padding(.bottom, getRelativeHeight(8.0))
+                                            HStack {
+                                                Text(StringConstants.kLblLoginAccount)
+                                                    .font(FontScheme
+                                                        .kOutfitSemiBold(size: getRelativeHeight(24.0)))
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(Color.black)
+                                                    .minimumScaleFactor(0.5)
+                                                    .multilineTextAlignment(.leading)
+                                                    .frame(width: getRelativeWidth(153.0),
+                                                           height: getRelativeHeight(31.0),
+                                                           alignment: .topLeading)
+                                                Spacer()
+                                                Image("img_user")
+                                                    .resizable()
+                                                    .frame(width: getRelativeWidth(16.0),
+                                                           height: getRelativeHeight(15.0),
+                                                           alignment: .center)
+                                                    .scaledToFit()
+                                                    .clipped()
+                                                    .padding(.top, getRelativeHeight(6.0))
+                                                    .padding(.bottom, getRelativeHeight(8.0))
+                                            }
+                                            .frame(width: getRelativeWidth(178.0),
+                                                   height: getRelativeHeight(31.0), alignment: .leading)
                                         }
                                         .frame(width: getRelativeWidth(178.0),
                                                height: getRelativeHeight(31.0), alignment: .leading)
+                                        Text(StringConstants.kMsgYouReAtUnian)
+                                            .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
+                                            .fontWeight(.regular)
+                                            .foregroundColor(Color.black)
+                                            .minimumScaleFactor(0.5)
+                                            .multilineTextAlignment(.leading)
+                                            .frame(width: getRelativeWidth(180.0),
+                                                   height: getRelativeHeight(17.0), alignment: .topLeading)
                                     }
-                                    .frame(width: getRelativeWidth(178.0),
-                                           height: getRelativeHeight(31.0), alignment: .leading)
-                                    Text(StringConstants.kMsgYouReAtUnian)
-                                        .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(Color.black)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(180.0),
-                                               height: getRelativeHeight(17.0), alignment: .topLeading)
-                                }
-                                .frame(width: getRelativeWidth(180.0), height: getRelativeHeight(50.0),
-                                       alignment: .top)
-                                ZStack(alignment: .topTrailing) {
-                                    Image("img_ellipse47_123x183")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(183.0),
-                                               height: getRelativeHeight(123.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .offset(y: -getRelativeHeight(100))
-                                    HStack {
-                                        Image("img_image1")
+                                    .frame(width: getRelativeWidth(180.0), height: getRelativeHeight(50.0),
+                                           alignment: .top)
+                                    ZStack(alignment: .topTrailing) {
+                                        Image("img_ellipse47_123x183")
                                             .resizable()
-                                            .frame(width: getRelativeWidth(50),
-                                                   height: getRelativeHeight(50), alignment: .center)
-                                            .scaledToFit()
-                                            .clipShape(Circle())
-                                            .clipShape(Capsule())
-                                            .offset(x: -getRelativeWidth(30))
-                                            .offset(y: -getRelativeHeight(-40))
-                                        Image("img_shape")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(9.0),
-                                                   height: getRelativeHeight(6.0), alignment: .center)
+                                            .frame(width: getRelativeWidth(183.0),
+                                                   height: getRelativeHeight(123.0), alignment: .center)
                                             .scaledToFit()
                                             .clipped()
-                                            .padding(.leading, getRelativeWidth(10.0))
-                                            .offset(x: -getRelativeWidth(30))
-                                            .offset(y: -getRelativeHeight(-40))
+                                            .offset(y: -getRelativeHeight(100))
+                                        HStack {
+                                            Image("img_image1")
+                                                .resizable()
+                                                .frame(width: getRelativeWidth(50),
+                                                       height: getRelativeHeight(50), alignment: .center)
+                                                .scaledToFit()
+                                                .clipShape(Circle())
+                                                .clipShape(Capsule())
+                                                .offset(x: -getRelativeWidth(30))
+                                                .offset(y: -getRelativeHeight(-40))
+                                            Image("img_shape")
+                                                .resizable()
+                                                .frame(width: getRelativeWidth(9.0),
+                                                       height: getRelativeHeight(6.0), alignment: .center)
+                                                .scaledToFit()
+                                                .clipped()
+                                                .padding(.leading, getRelativeWidth(10.0))
+                                                .offset(x: -getRelativeWidth(30))
+                                                .offset(y: -getRelativeHeight(-40))
+                                        }
+                                        .frame(width: getRelativeWidth(60.0),
+                                               height: getRelativeHeight(39.0), alignment: .topTrailing)
+                                        .padding(.bottom, getRelativeHeight(75.0))
+                                        .padding(.leading, getRelativeWidth(104.0))
                                     }
-                                    .frame(width: getRelativeWidth(60.0),
-                                           height: getRelativeHeight(39.0), alignment: .topTrailing)
-                                    .padding(.bottom, getRelativeHeight(75.0))
-                                    .padding(.leading, getRelativeWidth(104.0))
+                                    .hideNavigationBar()
+                                    .frame(width: getRelativeWidth(183.0), height: getRelativeHeight(123.0),
+                                           alignment: .center)
+                                    .padding(.leading, getRelativeWidth(4.0))
                                 }
-                                .hideNavigationBar()
-                                .frame(width: getRelativeWidth(183.0), height: getRelativeHeight(123.0),
+                                .frame(width: getRelativeWidth(367.0), height: getRelativeHeight(123.0),
+                                       alignment: .topTrailing)
+                                .padding(.bottom, getRelativeHeight(29.0))
+                                .padding(.leading, getRelativeWidth(23.0))
+                            }
+                            .hideNavigationBar()
+                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(152.0),
+                                   alignment: .leading)
+                            Text(StringConstants.kLblUniShop)
+                                .font(FontScheme.kOutfitMedium(size: getRelativeHeight(60.0)))
+                                .fontWeight(.medium)
+                                .foregroundColor(Color.black)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: getRelativeWidth(241.0), height: getRelativeHeight(60.0),
+                                       alignment: .topLeading)
+                                .padding(.horizontal, getRelativeWidth(61.0))
+                            Group {
+                                HStack {
+                                    TextField(StringConstants.kMsgInstitutionalE,
+                                              text: $loginViewModel.emailText)
+                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
+                                    .foregroundColor(.black)
+                                    .padding()
+                                }
+                                .onChange(of: loginViewModel.emailText) { newValue in
+                                    
+                                    loginViewModel.isValidEmailText = newValue
+                                        .isValidEmail(isMandatory: true)
+                                }
+                                .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                        alignment: .center)
-                                .padding(.leading, getRelativeWidth(4.0))
-                            }
-                            .frame(width: getRelativeWidth(367.0), height: getRelativeHeight(123.0),
-                                   alignment: .topTrailing)
-                            .padding(.bottom, getRelativeHeight(29.0))
-                            .padding(.leading, getRelativeWidth(23.0))
-                        }
-                        .hideNavigationBar()
-                        .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(152.0),
-                               alignment: .leading)
-                        Text(StringConstants.kLblUniShop)
-                            .font(FontScheme.kOutfitMedium(size: getRelativeHeight(60.0)))
-                            .fontWeight(.medium)
-                            .foregroundColor(Color.black)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(241.0), height: getRelativeHeight(76.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(15.0))
-                            .padding(.horizontal, getRelativeWidth(61.0))
-                        Group {
-                            HStack {
-                                TextField(StringConstants.kMsgInstitutionalE,
-                                          text: $loginViewModel.emailText)
-                                .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                .foregroundColor(.black)
-                                .padding()
-                            }
-                            .onChange(of: loginViewModel.emailText) { newValue in
+                                .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                        bottomRight: 8.0)
+                                    .stroke(Color.gray,
+                                            lineWidth: 1))
+                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                           bottomRight: 8.0)
+                                    .fill(Color.clear.opacity(0.7)))
+                                .padding(.top, getRelativeHeight(44.0))
+                                .padding(.horizontal, getRelativeWidth(29.0))
                                 
-                                loginViewModel.isValidEmailText = newValue
-                                    .isValidEmail(isMandatory: true)
                             }
-                            .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
-                                   alignment: .center)
-                            .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                    bottomRight: 8.0)
-                                .stroke(ColorConstants.Gray701,
-                                        lineWidth: 1))
-                            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                       bottomRight: 8.0)
-                                .fill(Color.clear.opacity(0.7)))
-                            .padding(.top, getRelativeHeight(44.0))
-                            .padding(.horizontal, getRelativeWidth(29.0))
-                            if !loginViewModel.isValidEmailText {
-                                Text("Please enter valid email.")
-                                    .foregroundColor(Color.red)
+                            Group {
+                                HStack {
+                                    SecureField(StringConstants.kLblPassword,
+                                                text: $loginViewModel.passwordText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .frame(width: getRelativeWidth(328.0),
-                                           height: getRelativeHeight(48.0), alignment: .center)
-                            }
-                        }
-                        Group {
-                            HStack {
-                                SecureField(StringConstants.kLblPassword,
-                                            text: $loginViewModel.passwordText)
-                                .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                .foregroundColor(.black)
-                                .padding()
-                                .keyboardType(.default)
-                            }
-                            .onChange(of: loginViewModel.passwordText) { newValue in
-                                
-                                loginViewModel.isValidPasswordText = newValue
-                                    .isValidPassword(isMandatory: true)
-                            }
-                            .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
-                                   alignment: .center)
-                            .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                    bottomRight: 8.0)
-                                .stroke(ColorConstants.Gray701,
-                                        lineWidth: 1))
-                            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                       bottomRight: 8.0)
-                                .fill(Color.clear.opacity(0.7)))
-                            .padding(.top, getRelativeHeight(11.0))
-                            .padding(.horizontal, getRelativeWidth(29.0))
-                            if !loginViewModel.isValidPasswordText {
-                                Text("Please enter valid password.")
-                                    .foregroundColor(Color.red)
-                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .frame(width: getRelativeWidth(328.0),
-                                           height: getRelativeHeight(48.0), alignment: .center)
-                            }
-                        }
-                        Text(StringConstants.kMsgForgetPassword)
-                            .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(107.0), height: getRelativeHeight(17.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(5.0))
-                            .padding(.horizontal, getRelativeWidth(33.0))
-                        Button(action: { 
-                            signUp()
-                        }, label: {
-                            HStack(spacing: 0) {
-                                Text(StringConstants.kLblLogin2)
-                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(18.0)))
-                                    .fontWeight(.regular)
-                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                    .padding(.vertical, getRelativeHeight(12.0))
-                                    .foregroundColor(Color.black)
-                                    .minimumScaleFactor(0.5)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: getRelativeWidth(328.0),
-                                           height: getRelativeHeight(48.0), alignment: .center)
-                                    .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                               bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(Color.yellow))
-                                    .padding(.horizontal, getRelativeWidth(29.0))
-                                NavigationLink(destination: ContentView(), isActive: $navigateToHome) {
-                                    EmptyView()
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .keyboardType(.default)
                                 }
+                                .onChange(of: loginViewModel.passwordText) { newValue in
+                                    
+                                    loginViewModel.isValidPasswordText = newValue
+                                        .isValidPassword(isMandatory: true)
+                                }
+                                .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
+                                       alignment: .center)
+                                .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                        bottomRight: 8.0)
+                                    .stroke(Color.gray,
+                                            lineWidth: 1))
+                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                           bottomRight: 8.0)
+                                    .fill(Color.clear.opacity(0.7)))
+                                .padding(.top, getRelativeHeight(11.0))
+                                .padding(.horizontal, getRelativeWidth(29.0))
+                                
                             }
-                        })
-                        .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
-                               alignment: .center)
-                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                   bottomRight: 8.0)
-                            .fill(Color.yellow))
-                        .padding(.top, getRelativeHeight(23.0))
-                        .padding(.horizontal, getRelativeWidth(29.0))
-                        HStack {
-                            Divider()
-                                .frame(width: getRelativeWidth(105.0), height: (1.0),
-                                       alignment: .bottom)
-                                .background(Color.black)
-                                .padding(.top, getRelativeHeight(9.0))
-                                .padding(.bottom, getRelativeHeight(6.0))
-                            Text(StringConstants.kLblOrSignUpWith)
-                                .font(FontScheme.kOutfitRegular(size: getRelativeHeight(12.0)))
+                            Text(StringConstants.kMsgForgetPassword)
+                                .font(FontScheme.kOutfitRegular(size: getRelativeHeight(13.0)))
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.black)
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
-                                .frame(width: getRelativeWidth(80.0), height: getRelativeHeight(16.0),
+                                .frame(width: getRelativeWidth(107.0), height: getRelativeHeight(17.0),
                                        alignment: .topLeading)
-                                .padding(.leading, getRelativeWidth(4.0))
-                            Divider()
-                                .frame(width: getRelativeWidth(105.0), height: getRelativeHeight(1.0),
-                                       alignment: .bottom)
-                                .background(Color.black)
-                                .padding(.top, getRelativeHeight(9.0))
-                                .padding(.bottom, getRelativeHeight(6.0))
-                                .padding(.leading, getRelativeWidth(4.0))
-                            Spacer()
-                        }
-                        .frame(width: getRelativeWidth(298.0), height: getRelativeHeight(16.0),
-                               alignment: .center)
-                        .padding(.top, getRelativeHeight(35.0))
-                        .padding(.horizontal, getRelativeWidth(29.0))
-                        ZStack {
-                            Image("img_image1_34x35")
-                                .resizable()
-                                .frame(width: getRelativeWidth(35.0), height: getRelativeHeight(34.0),
-                                       alignment: .center)
-                                .scaledToFit()
-                                .clipped()
-                                .padding(.vertical, getRelativeHeight(7.0))
-                                .padding(.horizontal, getRelativeWidth(26.0))
-                        }
-                        .hideNavigationBar()
-                        .frame(width: getRelativeWidth(88.0), height: getRelativeHeight(48.0),
-                               alignment: .center)
-                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                   bottomRight: 8.0)
-                            .fill(ColorConstants.WhiteA700))
-                        .shadow(color: Color.black, radius: 1, x: 0, y: 1)
-                        .padding(.top, getRelativeHeight(33.0))
-                        .padding(.horizontal, getRelativeWidth(29.0))
-                        NavigationLink(destination: SignUpView(), isActive: $navigateToSignUp) {
-                            EmptyView()
-                        }
-                        Text(StringConstants.kMsgNotRegisterYe)
-                            .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(13.0)))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(193.0), height: getRelativeHeight(20.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(52.0))
+                                .padding(.top, getRelativeHeight(5.0))
+                                .padding(.horizontal, getRelativeWidth(33.0))
+                            Button(action: {
+                                signUp()
+                            }, label: {
+                                HStack(spacing: 0) {
+                                    Text(StringConstants.kLblLogin2)
+                                        .font(FontScheme.kOutfitRegular(size: getRelativeHeight(18.0)))
+                                        .fontWeight(.regular)
+                                        .padding(.horizontal, getRelativeWidth(30.0))
+                                        .padding(.vertical, getRelativeHeight(12.0))
+                                        .foregroundColor(Color.black)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: getRelativeWidth(328.0),
+                                               height: getRelativeHeight(48.0), alignment: .center)
+                                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
+                                                                   bottomLeft: 8.0, bottomRight: 8.0)
+                                            .fill(Color(red: 1, green: 0.776, blue: 0)))
+                                        .padding(.horizontal, getRelativeWidth(29.0))
+                                    NavigationLink(destination: ContentView(), isActive: $navigateToHome) {
+                                        EmptyView()
+                                    }
+                                }
+                            })
+                            .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
+                                   alignment: .center)
+                            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                       bottomRight: 8.0)
+                                .fill(Color.yellow))
+                            .padding(.top, getRelativeHeight(23.0))
                             .padding(.horizontal, getRelativeWidth(29.0))
-                            .onTapGesture {
-                                self.navigateToSignUp = true
+                            if loginViewModel.showError {
+                                Text("Correo o contraseña incorrectos.")
+                                    .foregroundColor(Color.red)
+                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
+                                    .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .center)
                             }
-                        
+                            HStack {
+                                Divider()
+                                    .frame(width: getRelativeWidth(105.0), height: (1.0),
+                                           alignment: .bottom)
+                                    .background(Color.black)
+                                    .padding(.top, getRelativeHeight(9.0))
+                                    .padding(.bottom, getRelativeHeight(6.0))
+                                Text(StringConstants.kLblOrSignUpWith)
+                                    .font(FontScheme.kOutfitRegular(size: getRelativeHeight(12.0)))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black)
+                                    .minimumScaleFactor(0.5)
+                                    .multilineTextAlignment(.leading)
+                                    .frame(width: getRelativeWidth(80.0), height: getRelativeHeight(16.0),
+                                           alignment: .topLeading)
+                                    .padding(.leading, getRelativeWidth(4.0))
+                                Divider()
+                                    .frame(width: getRelativeWidth(105.0), height: getRelativeHeight(1.0),
+                                           alignment: .bottom)
+                                    .background(Color.black)
+                                    .padding(.top, getRelativeHeight(9.0))
+                                    .padding(.bottom, getRelativeHeight(6.0))
+                                    .padding(.leading, getRelativeWidth(4.0))
+                                Spacer()
+                            }
+                            .frame(width: getRelativeWidth(298.0), height: getRelativeHeight(16.0),
+                                   alignment: .center)
+                            .padding(.top, getRelativeHeight(35.0))
+                            .padding(.horizontal, getRelativeWidth(29.0))
+                            ZStack {
+                                Image("img_image1_34x35")
+                                    .resizable()
+                                    .frame(width: getRelativeWidth(35.0), height: getRelativeHeight(34.0),
+                                           alignment: .center)
+                                    .scaledToFit()
+                                    .clipped()
+                                    .padding(.vertical, getRelativeHeight(7.0))
+                                    .padding(.horizontal, getRelativeWidth(26.0))
+                            }
+                            .hideNavigationBar()
+                            .frame(width: getRelativeWidth(88.0), height: getRelativeHeight(48.0),
+                                   alignment: .center)
+                            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
+                                                       bottomRight: 8.0)
+                                .fill(Color.white))
+                            .shadow(color: Color.black, radius: 1, x: 0, y: 1)
+                            .padding(.top, getRelativeHeight(33.0))
+                            .padding(.horizontal, getRelativeWidth(29.0))
+                            NavigationLink(destination: SignUpView(), isActive: $navigateToSignUp) {
+                                EmptyView()
+                            }
+                            Text(StringConstants.kMsgNotRegisterYe)
+                                .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(13.0)))
+                                .fontWeight(.regular)
+                                .foregroundColor(Color.blue) // Cambia el color a azul
+                                .underline(true, color: Color.blue) // Agrega la línea azul
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: getRelativeWidth(193.0), height: getRelativeHeight(20.0),
+                                       alignment: .topLeading)
+                                .padding(.top, getRelativeHeight(52.0))
+                                .padding(.horizontal, getRelativeWidth(29.0))
+                                .onTapGesture {
+                                    self.navigateToSignUp = true
+                                }
+                            
+                            
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(694.0),
+                               alignment: .topLeading)
                     }
-                    .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(694.0),
-                           alignment: .topLeading)
+                    .hideNavigationBar()
+                    .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
+                    .background(Color.white)
+                    .padding(.top, getRelativeHeight(30.0))
+                    .padding(.bottom, getRelativeHeight(10.0))
                 }
-                .hideNavigationBar()
-                .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
-                .background(ColorConstants.WhiteA700)
-                .padding(.top, getRelativeHeight(30.0))
-                .padding(.bottom, getRelativeHeight(10.0))
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .background(Color.white)
+                .ignoresSafeArea()
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .background(ColorConstants.WhiteA700)
-            .ignoresSafeArea()
         }
         .hideNavigationBar()
     }

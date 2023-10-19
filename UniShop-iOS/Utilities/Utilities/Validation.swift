@@ -24,8 +24,10 @@ extension String {
         if isEmpty() {
             return !isMandatory
         }
-        let str = self.removeWhiteSpaces()
-        let regExpression = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let str = self
+        let regExpression = "^[A-Z0-9a-z._%+-]+@uniandes\\.edu\\.co$"
+        
         let predicate = NSPredicate(format: "SELF MATCHES %@", regExpression)
         return predicate.evaluate(with: str)
     }

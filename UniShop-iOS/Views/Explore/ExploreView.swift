@@ -58,13 +58,12 @@ struct ExploreView: View {
                                    alignment: .topLeading)
                             .padding(.horizontal, getRelativeWidth(37.0))
                         Text(StringConstants.kMsgLoremIpsumDol)
-                            .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
+                            .font(FontScheme.kOutfitRegular(size: getRelativeHeight(30.0)))
                             .fontWeight(.regular)
                             .foregroundColor(.black)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.center)
-                            .frame(width: getRelativeWidth(327.0), height: getRelativeHeight(77.0),
-                                   alignment: .center)
+                            .frame(width: getRelativeWidth(327.0), height: getRelativeHeight(77.0), alignment: .center)
                             .padding(.top, getRelativeHeight(9.0))
                             .padding(.leading, getRelativeWidth(37.0))
                             .padding(.trailing, getRelativeWidth(23.0))
@@ -113,7 +112,7 @@ struct ExploreView: View {
                                                                bottomLeft: 8.0, bottomRight: 8.0)
                                         .fill(Color(red: 1, green: 0.776, blue: 0)))
                                 
-                                  
+                                
                             }
                         })
                         .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
@@ -131,7 +130,7 @@ struct ExploreView: View {
                     .padding(.vertical, getRelativeHeight(55.0))
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
-                .background(ColorConstants.WhiteA700)
+                .background(Color.white)
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
@@ -139,21 +138,21 @@ struct ExploreView: View {
                                    tag: "SignUpView",
                                    selection: $exploreViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                 }
                 Group {
                     NavigationLink(destination: LoginView(),
                                    tag: "LoginView",
                                    selection: $exploreViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                 }
                 
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .background(ColorConstants.WhiteA700)
+            .background(Color.white)
             .ignoresSafeArea()
             .hideNavigationBar()
             .onAppear {}

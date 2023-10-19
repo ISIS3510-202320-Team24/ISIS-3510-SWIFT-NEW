@@ -86,6 +86,12 @@ struct SignUpView: View {
                                        alignment: .topLeading)
                                 .padding(.top, getRelativeHeight(9.0))
                                 .padding(.horizontal, getRelativeWidth(31.0))
+                                .padding(.bottom, getRelativeHeight(40.0))
+                                .padding(.bottom, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                                .padding(.bottom, signUpViewModel.rowflagofcolombiText.count < 10  ? 30 : 0)
+                                .padding(.bottom, !signUpViewModel.isValidMailText ? 20 : 0)
+                                .padding(.bottom, !signUpViewModel.isValidPasswordText ? 50 : 0)
+                            
                         }
                         .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(174.0),
                                alignment: .leading)
@@ -103,7 +109,7 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
@@ -111,9 +117,9 @@ struct SignUpView: View {
                                 .padding(.top, getRelativeHeight(11.0))
                                 .padding(.horizontal, getRelativeWidth(29.0))
                                 
-                                // Mensaje de validación para el campo "Name"
+                                
                                 if !signUpViewModel.isValidTamdcText {
-                                    Text("Por favor, ingresa un texto válido.")
+                                    Text("Please enter valid text.")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
                                         .frame(width: getRelativeWidth(328.0),
@@ -126,7 +132,7 @@ struct SignUpView: View {
                                     TextField(StringConstants.kLblUsername,
                                               text: $signUpViewModel.usernameText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .padding()
                                     .keyboardType(.alphabet)
                                 }
@@ -134,7 +140,7 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
@@ -146,7 +152,7 @@ struct SignUpView: View {
                                         .foregroundColor(Color.red)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
                                         .frame(width: getRelativeWidth(328.0),
-                                               height: getRelativeHeight(48.0), alignment: .center)
+                                               height: getRelativeHeight(15.0), alignment: .leading)
                                 }
                             }
                             Group {
@@ -155,7 +161,7 @@ struct SignUpView: View {
                                     Image("img_flagofcolombi")
                                         .resizable()
                                         .frame(width: getRelativeWidth(25.0),
-                                               height: getRelativeHeight(17.0), alignment: .center)
+                                               height: getRelativeHeight(17.0), alignment: .leading)
                                         .scaledToFit()
                                         .clipped()
                                         .padding(.top, getRelativeHeight(15.0))
@@ -163,7 +169,7 @@ struct SignUpView: View {
                                         .padding(.leading, getRelativeWidth(15.0))
                                     TextField(StringConstants.kLblPhone,
                                               text: $signUpViewModel.rowflagofcolombiText)
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .font(.system(size: 16))
                                     .padding()
                                     .keyboardType(.phonePad)
@@ -178,7 +184,7 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
@@ -201,7 +207,7 @@ struct SignUpView: View {
                                     TextField(StringConstants.kLblEmail,
                                               text: $signUpViewModel.mailText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .padding()
                                     .keyboardType(.emailAddress)
                                 }
@@ -213,7 +219,7 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
@@ -221,11 +227,11 @@ struct SignUpView: View {
                                 .padding(.top, getRelativeHeight(11.0))  // Adjusted padding to match other fields
                                 .padding(.horizontal, getRelativeWidth(29.0))  // Adjusted padding to match other fields
                                 if !signUpViewModel.isValidMailText {
-                                    Text("Please enter valid email.")
+                                    Text("Your email must belong to the community (@uniandes.edu.co)")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
                                         .frame(width: getRelativeWidth(328.0),
-                                               height: getRelativeHeight(48.0), alignment: .center)
+                                               height: getRelativeHeight(30.0), alignment: .leading)
                                 }
                             }
                             Group {
@@ -233,7 +239,7 @@ struct SignUpView: View {
                                     SecureField(StringConstants.kLblPassword,
                                                 text: $signUpViewModel.passwordText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .padding()
                                     .keyboardType(.default)
                                     
@@ -247,7 +253,7 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
@@ -255,11 +261,11 @@ struct SignUpView: View {
                                 .padding(.top, getRelativeHeight(11.0))
                                 .padding(.horizontal, getRelativeWidth(29.0))
                                 if !signUpViewModel.isValidPasswordText {
-                                    Text("Please enter valid password.")
+                                    Text("Your password must contain 1 uppercase letter, 1 lowercase letter, 1 number, a special character and a minimum of 8 characters")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
                                         .frame(width: getRelativeWidth(328.0),
-                                               height: getRelativeHeight(48.0), alignment: .center)
+                                               height: getRelativeHeight(50.0), alignment: .leading)
                                 }
                             }
                             Group {
@@ -267,7 +273,7 @@ struct SignUpView: View {
                                     SecureField(StringConstants.kMsgConfirmPasswor,
                                                 text: $signUpViewModel.cnpaswordText)
                                     .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .foregroundColor(Color.black)
                                     .padding()
                                     .keyboardType(.default)
                                 }
@@ -280,55 +286,58 @@ struct SignUpView: View {
                                        alignment: .center)
                                 .overlay(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                         bottomRight: 8.0)
-                                    .stroke(ColorConstants.Gray701,
+                                    .stroke(Color.gray,
                                             lineWidth: 1))
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
                                                            bottomRight: 8.0)
                                     .fill(Color.clear.opacity(0.7)))
                                 .padding(.top, getRelativeHeight(11.0))
                                 .padding(.horizontal, getRelativeWidth(29.0))
-                                if !signUpViewModel.isValidCnpaswordText {
-                                    Text("Please enter valid password.")
+                                if signUpViewModel.passwordText != signUpViewModel.cnpaswordText && signUpViewModel.cnpaswordText.count > 10 {
+                                    Text("Passwords do not match")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme.kOutfitRegular(size: getRelativeHeight(15.0)))
                                         .frame(width: getRelativeWidth(328.0),
-                                               height: getRelativeHeight(48.0), alignment: .center)
+                                               height: getRelativeHeight(15.0), alignment: .leading)
+                                    
                                 }
                             }
-                            HStack{
+                            Group{
                                 
-                                Group {
-                                    Picker("Selecciona tu carrera", selection: $signUpViewModel.selectedCarrera) {
-                                        ForEach(["ISIS", "MATE", "ADMIN", "IIND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
+                                HStack {
+                                    Picker("Select your degree", selection: $signUpViewModel.selectedCarrera) {
+                                        ForEach(["Select your degree","ISIS", "MATE", "ADMIN", "IIND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
                                             Text(carrera).tag(carrera)
+                                                .foregroundColor(Color.blue)
                                         }
                                     }
                                     .pickerStyle(MenuPickerStyle())
-                                    .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
-                                           alignment: .leading )
-                                    .padding(.top, getRelativeHeight(11.0))
-                                    .padding(.horizontal, getRelativeWidth(29.0))
-                                    .offset(x: -getRelativeHeight(-15))
-                                    .foregroundColor(ColorConstants.Gray700)
+                                    .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .leading)
+                                    .offset(x: -getRelativeHeight(10))
                                     
-                                }; Spacer()}}
-                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(401.0),
+                                    
+                                }}}
+                        .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(401.0),
+                               alignment: .leading)
+                        VStack(alignment: .leading, spacing: 0) {
+                            CheckboxField(idValue: StringConstants.kMsgIAcceptThePr,
+                                          label: StringConstants.kMsgIAcceptThePr,
+                                          color: Color.black,
+                                          isMarked: $signUpViewModel.iaccepttheprCheckbox)
+                            .minimumScaleFactor(0.5)
+                            .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                    alignment: .leading)
-                            VStack(alignment: .leading, spacing: 0) {
-                                CheckboxField(idValue: StringConstants.kMsgIAcceptThePr,
-                                              label: StringConstants.kMsgIAcceptThePr,
-                                              color: Color.black,
-                                              isMarked: $signUpViewModel.iaccepttheprCheckbox)
-                                .minimumScaleFactor(0.5)
-                                .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
-                                       alignment: .leading)
-                                .overlay(RoundedCorners().stroke(Color.black, lineWidth: 1))
-                                .background(RoundedCorners().fill(Color.yellow))
-                                .padding(.horizontal, getRelativeWidth(30.0))
-                            }
-                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(47.0),
-                                   alignment: .leading)
-                            .padding(.top, getRelativeHeight(28.0))
+                            .overlay(RoundedCorners().stroke(Color.black, lineWidth: 1))
+                            .background(RoundedCorners().fill(Color(red: 1, green: 0.776, blue: 0)))
+                            .padding(.horizontal, getRelativeWidth(30.0))
+                            .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                            .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
+                            .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
+                            .padding(.top, !signUpViewModel.isValidPasswordText ? 50 : 0)
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(47.0),
+                               alignment: .leading)
+                        .padding(.top, getRelativeHeight(28.0))
                         VStack {
                             Button(action: {
                                 if signUpViewModel.allFieldsValid {
@@ -340,8 +349,7 @@ struct SignUpView: View {
                                             "password": signUpViewModel.passwordText,
                                             "phone": signUpViewModel.rowflagofcolombiText,
                                             "username": signUpViewModel.usernameText,
-                                            "degree":
-                                                signUpViewModel.selectedCarrera
+                                            "degree":signUpViewModel.selectedCarrera
                                         ]
                                     ]
                                     
@@ -383,7 +391,7 @@ struct SignUpView: View {
                                                             print("3")
                                                             // Registro exitoso, redirige al usuario a la vista de inicio de sesión
                                                             self.navigateToLogin = true
-                                                            self.signUpViewModel.nextScreen = "LoginView"
+                                                            self.signUpViewModel.nextScreen = "ExporeView"
                                                             print("Registro exitoso")
                                                             
                                                         } else if let errors = json["errors"] as? [[String: Any]] {
@@ -414,14 +422,14 @@ struct SignUpView: View {
                                     .multilineTextAlignment(.center)
                                     .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .center)
                                     .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(Color.yellow))
-                                    .padding(.horizontal, getRelativeWidth(29.0))
+                                        .fill(Color(red: 1, green: 0.776, blue: 0)))
+                                    .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                                    .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
+                                    .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
+                                    .padding(.top, !signUpViewModel.isValidPasswordText ? 150 : 0)
                             }
                             .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                    alignment: .center)
-                            .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                                                       bottomRight: 8.0)
-                                .fill(Color.yellow))
                             .padding(.horizontal, getRelativeWidth(29.0))
                             NavigationLink(destination: LoginView(), isActive: $navigateToLogin) {
                                 EmptyView()
@@ -429,13 +437,17 @@ struct SignUpView: View {
                             Text(StringConstants.kMsgAlreadyHaveAn)
                                 .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(13.0)))
                                 .fontWeight(.regular)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color.blue)
+                                .underline(true, color: Color.blue)
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
-                                .frame(width: getRelativeWidth(194.0), height: getRelativeHeight(20.0),
-                                       alignment: .topLeading)
+                                .frame(width: getRelativeWidth(194.0), height: getRelativeHeight(20.0), alignment: .topLeading)
                                 .padding(.top, getRelativeHeight(21.0))
                                 .padding(.horizontal, getRelativeWidth(29.0))
+                                .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                                .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
+                                .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
+                                .padding(.top, !signUpViewModel.isValidPasswordText ? 50 : 0)
                                 .onTapGesture {
                                     self.navigateToLogin = true
                                 }
@@ -459,12 +471,13 @@ struct SignUpView: View {
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                .background(ColorConstants.WhiteA700)
+                .background(Color.white)
                 .ignoresSafeArea()
                 .hideNavigationBar()
             }
             .hideNavigationBar()
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -473,4 +486,5 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView()
     }
 }
+
 

@@ -31,7 +31,7 @@ struct StringConstants {
         "We’re so happy that you want to join us, now we need to validate your data and check if you’re elegible, so we will need the following data"
     static let kLblAdd: String = "Add"
     static let kMsgNotRegisterYe2: String = "Not register yet ? "
-    static let kLblLetsStart: String = "Lets Start"
+    static let kLblLetsStart: String = "Sign Up"
     static let kUnableToFetch: String = "Unable to fetch data"
     static let kLblLogin2: String = "Login "
     static let kLblMellisaCarter: String = "Mellisa Carter"
@@ -41,7 +41,7 @@ struct StringConstants {
     static let kLblPassword: String = "Password"
     static let kLblTitle: String = "Name"
     static let kMsgLoremIpsumDol: String =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi maecenas quis interdum enim enim molestie faucibus. Pretium non non massa eros, nunc, urna. Ac laoreet sagittis donec vel. Amet, duis justo, quam quisque egestas. Quam enim at dictum condimentum. Suspendisse."
+    "Welcome to UniShop, the ultimate marketplace for university students! At UniShop, we bring together the campus community to provide an easy and secure platform for buying and selling everything you need for your student life."
     static let kLblName: String = "Name"
     static let kMsgIAcceptThePr: String =
         "I accept the privacy policy and data consent of the data, I understand I have read it and understand it.\nWe’re not under “Universidad de los Andes” rights."

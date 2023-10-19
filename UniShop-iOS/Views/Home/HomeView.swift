@@ -177,7 +177,7 @@ struct DropdownView: View {
                 }
             }
             .padding()
-            .background(selectedCategory == labelText ? Color.yellow : Color(red: 0.933, green: 0.933, blue: 0.933))
+            .background(selectedCategory == labelText ? Color(red: 1, green: 0.776, blue: 0) : Color(red: 0.933, green: 0.933, blue: 0.933))
             .cornerRadius(6)
         }
         .buttonStyle(PlainButtonStyle())
@@ -198,3 +198,4 @@ struct ViewOffsetKey: PreferenceKey {
         value = nextValue()
     }
 }
+

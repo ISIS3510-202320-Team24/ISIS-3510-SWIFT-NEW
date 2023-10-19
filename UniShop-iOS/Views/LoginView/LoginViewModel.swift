@@ -7,4 +7,5 @@ class LoginViewModel: ObservableObject {
     @Published var isValidEmailText: Bool = true
     @Published var passwordText: String = ""
     @Published var isValidPasswordText: Bool = true
+    @Published var showError = false
 }

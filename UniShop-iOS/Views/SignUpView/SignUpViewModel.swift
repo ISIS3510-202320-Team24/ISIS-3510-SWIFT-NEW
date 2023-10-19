@@ -16,7 +16,7 @@ class SignUpViewModel: ObservableObject {
     @Published var cnpaswordText: String = ""
     @Published var isValidCnpaswordText: Bool = true
     @Published var iaccepttheprCheckbox: Bool = false
-    @Published var selectedCarrera: String = "Selecciona tu carrera"
+    @Published var selectedCarrera: String = "Select your degree"
     var allFieldsValid: Bool {
         return isValidTamdcText && isValidUsernameText && isValidRowflagofcolombiText && isValidMailText && isValidPasswordText && isValidCnpaswordText && iaccepttheprCheckbox && rowflagofcolombiText.count==10 && passwordText==cnpaswordText
     }

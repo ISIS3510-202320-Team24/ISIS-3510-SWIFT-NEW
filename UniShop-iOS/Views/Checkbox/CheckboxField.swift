@@ -1,27 +1,6 @@
-//
-//  CheckboxField.swift
-//
+
 
 import SwiftUI
-
-/**
-  CheckboxField
-
-  # Input Variable: #
-
-  - `label`: name of checkbox field
-
-  - `color`: tint color of checkbox
-
-  - `isMarked`: variable is wrapped in @Binding with boolean type to get update on check or uncheck on box.
-
-  # Example #
- ```
-  @State private var visibleMe: Bool = false
-
-  CheckboxField(id: "Visible", label: "Visible Me", color: Color.blue, isMarked: $visibleMe)
- ```
- */
 
 struct CheckboxField: View {
     let idValue: String

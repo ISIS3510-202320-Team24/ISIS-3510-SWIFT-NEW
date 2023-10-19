@@ -48,7 +48,6 @@
 		BD5675872ACB73D400E34048 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675832ACB73D400E34048 /* Validation.swift */; };
 		BD5675942ACB741300E34048 /* NewPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675892ACB741300E34048 /* NewPostViewModel.swift */; };
 		BD5675952ACB741300E34048 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56758A2ACB741300E34048 /* ImagePickerView.swift */; };
-		BD5675962ACB741300E34048 /* ColumnmaskgroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56758C2ACB741300E34048 /* ColumnmaskgroupCell.swift */; };
 		BD5675972ACB741300E34048 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56758D2ACB741300E34048 /* NewPostView.swift */; };
 		BD5675982ACB741300E34048 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56758F2ACB741300E34048 /* SignUpViewModel.swift */; };
 		BD5675992ACB741300E34048 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675902ACB741300E34048 /* SignUpView.swift */; };
@@ -102,7 +101,6 @@
 		BD5675832ACB73D400E34048 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		BD5675892ACB741300E34048 /* NewPostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewModel.swift; sourceTree = "<group>"; };
 		BD56758A2ACB741300E34048 /* ImagePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
-		BD56758C2ACB741300E34048 /* ColumnmaskgroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnmaskgroupCell.swift; sourceTree = "<group>"; };
 		BD56758D2ACB741300E34048 /* NewPostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		BD56758F2ACB741300E34048 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		BD5675902ACB741300E34048 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -360,18 +358,9 @@
 			children = (
 				BD5675892ACB741300E34048 /* NewPostViewModel.swift */,
 				BD56758A2ACB741300E34048 /* ImagePickerView.swift */,
-				BD56758B2ACB741300E34048 /* Cell */,
 				BD56758D2ACB741300E34048 /* NewPostView.swift */,
 			);
 			path = NewPostView;
-			sourceTree = "<group>";
-		};
-		BD56758B2ACB741300E34048 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				BD56758C2ACB741300E34048 /* ColumnmaskgroupCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		BD56758E2ACB741300E34048 /* SignUpView */ = {
@@ -506,7 +495,6 @@
 				BD5675942ACB741300E34048 /* NewPostViewModel.swift in Sources */,
 				BD5675412ACB6ECE00E34048 /* FavoritesView.swift in Sources */,
 				BD5675972ACB741300E34048 /* NewPostView.swift in Sources */,
-				BD5675962ACB741300E34048 /* ColumnmaskgroupCell.swift in Sources */,
 				BD56754E2ACB728100E34048 /* AppConstants.swift in Sources */,
 				BD56754D2ACB728100E34048 /* FontScheme.swift in Sources */,
 				BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */,
@@ -662,6 +650,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -694,6 +683,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

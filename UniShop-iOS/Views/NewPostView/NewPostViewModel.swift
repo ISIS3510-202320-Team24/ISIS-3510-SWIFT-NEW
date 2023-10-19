@@ -12,10 +12,10 @@ class NewPostViewModel: ObservableObject {
     @Published var selectedImage: UIImage = .init()
     @Published var imagePickerSource = UIImagePickerController.SourceType.photoLibrary
     @Published var iaccepttheprCheckbox: Bool = false
-
-    func showAlert(_ title: String, _ message: String) {
-        self.isAlertShow = true
-        self.alertTitle = title
-        self.alertDescription = message
+    func allFieldsValid (name:String,description:String,price:String,subject:String,degree:String) -> Bool{
+    
+        return !name.isEmpty && !description.isEmpty && !price.isEmpty && !subject.isEmpty && !degree.isEmpty
     }
+
+
 }

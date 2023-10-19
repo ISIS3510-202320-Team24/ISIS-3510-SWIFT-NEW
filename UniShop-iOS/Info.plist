@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+    <!-- Permiso de cámara -->
+    <key>NSCameraUsageDescription</key>
+    <string>Esta aplicación necesita acceso a la cámara para tomar fotos y cargar imágenes.</string>
+    
+    <!-- Permiso de ubicación en tiempo de ejecución -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Esta aplicación necesita acceder a tu ubicación para proporcionarte información personalizada.</string>
+    
+    <!-- Permiso de ubicación en segundo plano (si es necesario) -->
+    <!--
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Esta aplicación necesita acceso a tu ubicación en segundo plano para proporcionarte información personalizada.</string>
+    -->
+</dict>
 </plist>
