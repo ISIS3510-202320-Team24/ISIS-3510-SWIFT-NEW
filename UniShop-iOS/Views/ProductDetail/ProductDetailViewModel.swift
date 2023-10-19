@@ -17,6 +17,9 @@ struct ProductDetail: Codable {
     let user: User
 }
 
+/**
+ Detail view model
+ */
 class ProductDetailViewModel: ObservableObject {
     @Published var product: ProductDetail?
 
@@ -25,6 +28,8 @@ class ProductDetailViewModel: ObservableObject {
 
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        /**
+         add the headers*/
         request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
 
         URLSession.shared.dataTask(with: request) { data, response, error in

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ProductCardView: View {
     var product: Product
-    
     var body: some View {
         NavigationLink(destination: ProductDetailView(productId: product.id)) {
             VStack(alignment: .leading, spacing: 0) {
@@ -53,3 +52,4 @@ struct ProductCardView: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
+

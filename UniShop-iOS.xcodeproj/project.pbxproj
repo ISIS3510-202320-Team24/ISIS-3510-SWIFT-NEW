@@ -164,7 +164,6 @@
 				BD56758E2ACB741300E34048 /* SignUpView */,
 				BD5675522ACB72D300E34048 /* Checkbox */,
 				BD5675432ACB720D00E34048 /* Explore */,
-				BD56753B2ACB6CD200E34048 /* Chat */,
 				BD56753A2ACB6CCB00E34048 /* Favorites */,
 				BD5675382ACB6CBC00E34048 /* Posts */,
 				BD56752F2ACB52BA00E34048 /* ProductDetail */,
@@ -235,13 +234,6 @@
 				BD5675402ACB6ECE00E34048 /* FavoritesView.swift */,
 			);
 			path = Favorites;
-			sourceTree = "<group>";
-		};
-		BD56753B2ACB6CD200E34048 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Chat;
 			sourceTree = "<group>";
 		};
 		BD5675432ACB720D00E34048 /* Explore */ = {
@@ -655,6 +647,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = D86K829P3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
@@ -686,6 +679,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = D86K829P3Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
