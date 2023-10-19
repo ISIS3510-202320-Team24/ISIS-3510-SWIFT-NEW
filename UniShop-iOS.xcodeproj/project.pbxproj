@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		059A913C2AE1C30200C59F75 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 059A913B2AE1C30200C59F75 /* .gitignore */; };
 		BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */; };
 		BD56750A2ACB252A00E34048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD5675092ACB252A00E34048 /* Assets.xcassets */; };
 		BD5675192ACB266100E34048 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675182ACB266100E34048 /* HomeView.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		059A913B2AE1C30200C59F75 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BD5675022ACB252800E34048 /* UniShop-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniShop-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniShop_iOSApp.swift; sourceTree = "<group>"; };
 		BD5675092ACB252A00E34048 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				BD5675132ACB25CC00E34048 /* Views */,
 				BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */,
 				BD5675092ACB252A00E34048 /* Assets.xcassets */,
+				059A913B2AE1C30200C59F75 /* .gitignore */,
 			);
 			path = "UniShop-iOS";
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				BD5675732ACB739200E34048 /* PoppinsRegular.ttf in Resources */,
 				BD5675762ACB739200E34048 /* OutfitMedium.ttf in Resources */,
 				BD5675742ACB739200E34048 /* OutfitSemiBold.ttf in Resources */,
+				059A913C2AE1C30200C59F75 /* .gitignore in Resources */,
 				BD5675782ACB739200E34048 /* OutfitBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
