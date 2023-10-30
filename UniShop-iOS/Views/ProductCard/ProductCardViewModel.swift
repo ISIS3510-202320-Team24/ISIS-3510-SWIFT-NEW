@@ -63,7 +63,7 @@ class ProductCardViewModel: ObservableObject {
         
         let relevantDegrees = similarDegrees[userDegree] ?? [userDegree]
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.products = self.allProducts.filter { product in
                 return relevantDegrees.contains(product.degree)
             }
