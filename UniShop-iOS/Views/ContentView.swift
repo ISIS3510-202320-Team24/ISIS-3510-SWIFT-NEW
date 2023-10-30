@@ -30,6 +30,7 @@ struct ContentView: View {
             .position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height - 90)
         }
         .hideNavigationBar()
+        .gesture(DragGesture().onChanged { _ in })
     }
 }
 

@@ -10,7 +10,9 @@ import SwiftUI
 struct PostsView: View {
     var body: some View {
         Text("POSTS!")
+            .gesture(DragGesture().onChanged { _ in })
     }
+        
 }
 
 #Preview {

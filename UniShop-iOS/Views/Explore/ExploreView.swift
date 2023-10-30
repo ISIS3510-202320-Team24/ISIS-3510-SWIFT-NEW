@@ -156,6 +156,7 @@ struct ExploreView: View {
             .ignoresSafeArea()
             .hideNavigationBar()
             .onAppear {}
+            .gesture(DragGesture().onChanged { _ in })
         }
     }
 }

@@ -384,6 +384,7 @@ struct LoginView: View {
             }
         }
         .hideNavigationBar()
+        .gesture(DragGesture().onChanged { _ in })
     }
 }
 

@@ -10,7 +10,9 @@ import SwiftUI
 struct FavoritesView: View {
     var body: some View {
         Text("FAVORITES!")
+        .gesture(DragGesture().onChanged { _ in })
     }
+    
 }
 
 #Preview {

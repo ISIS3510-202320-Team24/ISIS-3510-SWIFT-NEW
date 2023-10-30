@@ -478,6 +478,7 @@ struct SignUpView: View {
             .hideNavigationBar()
         }
         .navigationBarBackButtonHidden(true)
+        .gesture(DragGesture().onChanged { _ in })
     }
 }
 
@@ -486,5 +487,3 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView()
     }
 }
-
-

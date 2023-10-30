@@ -12,9 +12,9 @@ struct Alert: Codable {
 
 
 class ProfileViewController: ObservableObject {
-    
     @Published var showingAlert = false
     @Published var alertMessage = ""
+    @Published var nextScreen: String? = nil
     private var locationManager = LocationManager()
     
     var latitude: String {
