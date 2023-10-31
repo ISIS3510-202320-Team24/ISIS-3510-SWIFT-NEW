@@ -120,39 +120,38 @@ struct ProfileView: View {
             }
             
             Button(action: {
-                          
-                            UserDefaults.standard.removeObject(forKey: "userName")
-                            UserDefaults.standard.removeObject(forKey: "userPhone")
-                            UserDefaults.standard.removeObject(forKey: "username")
-                            UserDefaults.standard.removeObject(forKey: "userEmail")
-                            UserDefaults.standard.removeObject(forKey: "userDegree")
-                            UserDefaults.standard.removeObject(forKey: "userID")
-
-                   
-                            profileController.nextScreen = "SignUpView"
-                        }) {
-                            Text("Logout")
-                                .font(.system(size: 22, weight: .bold, design: .default))
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color(red: 1, green: 0.776, blue: 0))
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
-                        .padding(.top, 10)
-                        .padding(.horizontal)
-                    }
-                    .background(
-                        NavigationLink(
-                            destination: LoginView(),
-                            tag: "SignUpView",
-                            selection: $profileController.nextScreen,
-                            label: {
-                                EmptyView()
-                            }
-                        )
-                        .opacity(0) // Hide the navigation link view
-                    )
+                UserDefaults.standard.removeObject(forKey: "userName")
+                UserDefaults.standard.removeObject(forKey: "userPhone")
+                UserDefaults.standard.removeObject(forKey: "username")
+                UserDefaults.standard.removeObject(forKey: "userEmail")
+                UserDefaults.standard.removeObject(forKey: "userDegree")
+                UserDefaults.standard.removeObject(forKey: "userID")
+                UserDefaults.standard.removeObject(forKey: "userPosts")
+       
+                profileController.nextScreen = "SignUpView"
+            }) {
+                Text("Logout")
+                    .font(.system(size: 22, weight: .bold, design: .default))
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(red: 1, green: 0.776, blue: 0))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+            .padding(.top, 10)
+            .padding(.horizontal)
+        }
+        .background(
+            NavigationLink(
+                destination: LoginView(),
+                tag: "SignUpView",
+                selection: $profileController.nextScreen,
+                label: {
+                    EmptyView()
+                }
+            )
+            .opacity(0) // Hide the navigation link view
+        )
         .padding(.top, 25)
         .navigationBarTitle(name, displayMode: .inline)
         .background(Color.white)

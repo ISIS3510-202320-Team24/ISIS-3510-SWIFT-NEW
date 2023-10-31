@@ -30,7 +30,17 @@ class PostsController: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var loadingMessage: String = ""
     
+    private let userProductsKey = "userPosts"
+    
+    init() {
+        loadFromLocalStorage()
+    }
+    
     func fetchProductsByUserID(id: String) {
+        if !userProducts.isEmpty && UserDefaults.standard.data(forKey: userProductsKey) != nil {
+            return
+        }
+        
         self.userProducts = []
         self.loadingMessage = "Loading your posts..."
         self.isLoading = true
@@ -77,6 +87,7 @@ class PostsController: ObservableObject {
                 let response = try JSONDecoder().decode(Response2.self, from: data)
                 DispatchQueue.main.async {
                     self.userProducts = response.post.reversed()
+                    self.saveToLocalStorage()
                 }
             } catch {
                 print("Decoding error: \(error)")
@@ -88,5 +99,27 @@ class PostsController: ObservableObject {
         }.resume()
     }
 
+    private func saveToLocalStorage() {
+        do {
+            let encodedData = try JSONEncoder().encode(userProducts)
+            UserDefaults.standard.set(encodedData, forKey: userProductsKey)
+        } catch {
+            print("Failed to save user products to local storage:", error)
+        }
+    }
+    
+    private func loadFromLocalStorage() {
+        self.userProducts = []
+        
+        guard let encodedData = UserDefaults.standard.data(forKey: userProductsKey) else {
+            return
+        }
+
+        do {
+            userProducts = try JSONDecoder().decode([Product2].self, from: encodedData)
+        } catch {
+            print("Failed to decode user products from local storage:", error)
+        }
+    }
 }
 
