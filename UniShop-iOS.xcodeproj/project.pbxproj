@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		059A913C2AE1C30200C59F75 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 059A913B2AE1C30200C59F75 /* .gitignore */; };
+		05D005242AF18D3300598A58 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D005232AF18D3300598A58 /* NetworkManager.swift */; };
 		BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */; };
 		BD56750A2ACB252A00E34048 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD5675092ACB252A00E34048 /* Assets.xcassets */; };
 		BD5675192ACB266100E34048 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675182ACB266100E34048 /* HomeView.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		059A913B2AE1C30200C59F75 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		05D005232AF18D3300598A58 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BD5675022ACB252800E34048 /* UniShop-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniShop-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5675052ACB252800E34048 /* UniShop_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniShop_iOSApp.swift; sourceTree = "<group>"; };
 		BD5675092ACB252A00E34048 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				BD7E813D2ACCA810009116D7 /* LocationManager.swift */,
+				05D005232AF18D3300598A58 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				BD5675842ACB73D400E34048 /* Utilities.swift in Sources */,
 				BD5675462ACB722500E34048 /* ExploreView.swift in Sources */,
 				BD5675952ACB741300E34048 /* ImagePickerView.swift in Sources */,
+				05D005242AF18D3300598A58 /* NetworkManager.swift in Sources */,
 				BD5675682ACB735B00E34048 /* ActivityLoader.swift in Sources */,
 				BD56755C2ACB732600E34048 /* EncodableExtension.swift in Sources */,
 				BD5675192ACB266100E34048 /* HomeView.swift in Sources */,

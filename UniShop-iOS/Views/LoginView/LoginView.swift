@@ -23,6 +23,11 @@ struct LoginView: View {
     Binding<PresentationMode>
     
     func signUp() {
+        
+        guard !loginViewModel.emailText.isEmpty, !loginViewModel.passwordText.isEmpty else {
+                print("El nombre de usuario y la contraseña no pueden estar vacíos")
+                return
+            }
         // Ensure your URL is correct.
         guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/users/all") else {
             fatalError("Invalid URL")

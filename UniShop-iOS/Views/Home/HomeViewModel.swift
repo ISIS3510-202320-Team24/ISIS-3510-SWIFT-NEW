@@ -106,5 +106,8 @@ class HomeViewModel: ObservableObject {
     deinit {
         timerCancellable?.cancel()
     }
+    
+
+    
 }
 
