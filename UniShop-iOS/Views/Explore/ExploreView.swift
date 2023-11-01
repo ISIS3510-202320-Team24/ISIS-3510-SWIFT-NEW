@@ -7,7 +7,7 @@ struct ExploreView: View {
     @EnvironmentObject var networkManager: NetworkManager
     @State private var showAlert = false
     @State private var alertMessage = ""
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -144,7 +144,7 @@ struct ExploreView: View {
                         self.checkInternetConnection()
                     }
                 }
-
+                
                 .alert(isPresented: $showAlert) {
                     SwiftUI.Alert(
                         title: Text("Estado de la conexión"),
@@ -171,7 +171,7 @@ struct ExploreView: View {
                         EmptyView()
                     })
                 }
-
+                
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .background(Color.white)
@@ -179,24 +179,23 @@ struct ExploreView: View {
             .hideNavigationBar()
             .onAppear {}
             .gesture(DragGesture().onChanged { _ in })
-    
+            
         }
     }
-func checkInternetConnection() {
-    // Verifica la conexión a Internet utilizando networkManager
-    let isConnected = networkManager.hasInternetConnection
-    if isConnected {
-        showAlert = false
-    } else {
-        // No hay conexión a Internet, muestra un mensaje de error solo si no se muestra actualmente.
-        if !showAlert {
-            alertMessage = "No hay conexión a Internet"
-            showAlert = true
+    func checkInternetConnection() {
+        // Verifica la conexión a Internet utilizando networkManager
+        let isConnected = networkManager.hasInternetConnection
+        if isConnected {
+            showAlert = false
+        } else {
+            // No hay conexión a Internet, muestra un mensaje de error solo si no se muestra actualmente.
+            if !showAlert {
+                alertMessage = "No hay conexión a Internet"
+                showAlert = true
+            }
         }
     }
 }
-}
-
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         ExploreView()
