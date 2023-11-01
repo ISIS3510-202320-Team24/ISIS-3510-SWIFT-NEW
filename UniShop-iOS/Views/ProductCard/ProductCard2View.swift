@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProductCard2View: View {
     var product2: Product2
+    @ObservedObject var controller: PostsController
     
     var body: some View {
         NavigationLink(destination: ProductDetailView(productId: product2.id ?? "", owner: true)) {
@@ -45,9 +46,7 @@ struct ProductCard2View: View {
                         .foregroundColor(.gray)
                 }
                 
-                Button(action: {
-                    // TODO: delete
-                }) {
+                Button(action: deleteProduct) {
                     Text("Delete")
                         .font(.system(size: 16, design: .default))
                         .frame(maxWidth: .infinity)
@@ -65,6 +64,16 @@ struct ProductCard2View: View {
             .shadow(radius: 5)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+    
+    func deleteProduct() {
+        self.controller.deletePostById(id: product2.id ?? "") { success in
+            if success {
+                DispatchQueue.main.async {
+                    self.controller.userProducts.removeAll { $0.id == product2.id }
+                }
+            }
+        }
     }
 }
 

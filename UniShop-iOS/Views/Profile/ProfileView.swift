@@ -16,8 +16,6 @@ struct ProfileView: View {
     @State private var showAlert = false
     @ObservedObject private var profileController = ProfileViewController()
 
-
-
     init() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
