@@ -228,6 +228,9 @@ struct NewPostView: View {
                             // La publicación se creó con éxito
                             alertMessage = "Publicación creada con éxito"
                             showAlert = true
+                            UserDefaults.standard.removeObject(forKey: "userPosts")
+                            UserDefaults.standard.removeObject(forKey: "allProducts")
+                            UserDefaults.standard.removeObject(forKey: "recommendedProducts")
                             // Puedes realizar acciones adicionales aquí si es necesario
                         } else if let errors = dataResponse["errors"] as? [[String: Any]] {
                             // Maneja los errores si ocurrieron durante la creación de la publicación
@@ -248,6 +251,9 @@ struct NewPostView: View {
         alertMessage = "Successfully published!"
         isAlertSuccess = true
         showAlert = true
+        UserDefaults.standard.removeObject(forKey: "userPosts")
+        UserDefaults.standard.removeObject(forKey: "allProducts")
+        UserDefaults.standard.removeObject(forKey: "recommendedProducts")
     }
     func allFieldsAreFilled() -> Bool {
         // Verifica que name, description y subject no contengan solo espacios

@@ -35,12 +35,26 @@ struct User: Codable {
 class ProductCardViewModel: ObservableObject {
     @Published var products = [Product]()
     @Published var allProducts = [Product]()
+    @Published var recommendedProducts = [Product]()
     @Published var isLoading: Bool = false
     @Published var loadingMessage: String = ""
+    
+    private let allProductsKey = "allProducts"
+    private let recommendedProductsKey = "recommendedProducts"
 
+    init() {
+        loadFromLocalStorage()
+    }
+    
     // smart algorithm
     func fetchRecommendedProducts() {
+        if !self.products.isEmpty && !self.recommendedProducts.isEmpty && UserDefaults.standard.data(forKey: recommendedProductsKey) != nil {
+            self.products = self.recommendedProducts
+            return
+        }
+        
         self.products = []
+        self.recommendedProducts = []
         self.isLoading = true
         self.loadingMessage = "Searching for products that suit you..."
         
@@ -63,23 +77,33 @@ class ProductCardViewModel: ObservableObject {
         
         let relevantDegrees = similarDegrees[userDegree] ?? [userDegree]
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
             self.products = self.allProducts.filter { product in
                 return relevantDegrees.contains(product.degree)
             }
+            self.recommendedProducts = self.products
+            self.saveToLocalStorageRecommended()
             self.isLoading = false
         }
     }
 
     func fetchBargainProducts() {
+        self.isLoading = true
         self.products = self.allProducts.sorted {
             let price0 = Double($0.price.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)) ?? 0
             let price1 = Double($1.price.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)) ?? 0
             return price0 < price1
         }
+        self.isLoading = false
     }
     
     func fetchProducts() {
+        if !products.isEmpty && !self.allProducts.isEmpty && UserDefaults.standard.data(forKey: allProductsKey) != nil {
+            self.products = self.allProducts
+            return
+        }
+        
+        self.allProducts = []
         self.products = []
         self.loadingMessage = "Loading products..."
         self.isLoading = true
@@ -103,14 +127,54 @@ class ProductCardViewModel: ObservableObject {
             do {
                 let response = try JSONDecoder().decode(Response.self, from: data)
                 DispatchQueue.main.async {
-                    self.allProducts = response.post
-                    self.products = self.allProducts
+                    self.products = response.post
+                    self.allProducts = self.products
+                    self.saveToLocalStorageAll()
                     self.isLoading = false
                 }
             } catch {
                 print("Decoding error: \(error)")
             }
         }.resume()
+    }
+    
+    private func saveToLocalStorageAll() {
+        do {
+            let encodedData = try JSONEncoder().encode(allProducts)
+            UserDefaults.standard.set(encodedData, forKey: allProductsKey)
+        } catch {
+            print("Failed to save all products to local storage:", error)
+        }
+    }
+    
+    private func saveToLocalStorageRecommended() {
+        do {
+            let encodedData = try JSONEncoder().encode(recommendedProducts)
+            UserDefaults.standard.set(encodedData, forKey: recommendedProductsKey)
+        } catch {
+            print("Failed to save reccommended products to local storage:", error)
+        }
+    }
+    
+    private func loadFromLocalStorage() {
+        self.products = []
+        self.allProducts = []
+        self.recommendedProducts = []
+        
+        guard let allData = UserDefaults.standard.data(forKey: allProductsKey) else {
+            return
+        }
+        
+        guard let recommendedData = UserDefaults.standard.data(forKey: recommendedProductsKey) else {
+            return
+        }
+
+        do {
+            self.allProducts = try JSONDecoder().decode([Product].self, from: allData)
+            self.recommendedProducts = try JSONDecoder().decode([Product].self, from: recommendedData)
+        } catch {
+            print("Failed to decode from local storage:", error)
+        }
     }
 }
 
