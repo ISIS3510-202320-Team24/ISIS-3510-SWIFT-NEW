@@ -17,11 +17,13 @@ extension View {
 struct ProductDetailView: View {
     @ObservedObject var viewModel: ProductDetailViewModel
     var productId: String
+    var owner: Bool
 
-    init(productId: String) {
+    init(productId: String, owner: Bool = false) {
         self.productId = productId
+        self.owner = owner
         self.viewModel = ProductDetailViewModel()
-
+        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.titleTextAttributes = [
@@ -76,19 +78,37 @@ struct ProductDetailView: View {
                     infoRow(title: "Sold by:", value: product.user.name + " - @" + product.user.username)
                     infoRow(title: "Posted:", value: product.date)
 
-                    Button(action: {
-                        // handle button tap
-                    }) {
-                        Text("Contact Seller")
-                            .font(.custom("Archivo-Regular", size: 16))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color(red: 1, green: 0.776, blue: 0))
-                            .cornerRadius(8)
+                    VStack {
+                        if (self.owner || (self.viewModel.product?.user.username == UserDefaults.standard.string(forKey: "username") && self.viewModel.product?.user.name == UserDefaults.standard.string(forKey: "userName"))) {
+                            Button(action: {
+                                // TODO: handle delete action
+                            }) {
+                                Text("Delete")
+                                    .font(.custom("Archivo-Regular", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color(red: 1, green: 0, blue: 0))
+                                    .cornerRadius(8)
+                            }
+                            .padding([.leading, .trailing], 15)
+                            .padding(.top, 12)
+                        } else {
+                            Button(action: {
+                                // handle contact seller action
+                            }) {
+                                Text("Contact Seller")
+                                    .font(.custom("Archivo-Regular", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color(red: 1, green: 0.776, blue: 0))
+                                    .cornerRadius(8)
+                            }
+                            .padding([.leading, .trailing], 15)
+                            .padding(.top, 12)
+                        }
                     }
-                    .padding([.leading, .trailing], 15)
-                    .padding(.top, 12)
                 } else {
                     // Loading view
                     Text("Loading...")

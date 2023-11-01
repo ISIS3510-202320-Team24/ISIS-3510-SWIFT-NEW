@@ -153,7 +153,7 @@ struct ProfileView: View {
                     EmptyView()
                 }
             )
-            .opacity(0) // Hide the navigation link view
+            .opacity(0)
         )
         .padding(.top, 25)
         .navigationBarTitle(name, displayMode: .inline)

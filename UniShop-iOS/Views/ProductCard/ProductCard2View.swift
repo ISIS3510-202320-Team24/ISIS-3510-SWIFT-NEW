@@ -4,7 +4,7 @@ struct ProductCard2View: View {
     var product2: Product2
     
     var body: some View {
-        NavigationLink(destination: ProductDetailView(productId: product2.id ?? "")) {
+        NavigationLink(destination: ProductDetailView(productId: product2.id ?? "", owner: true)) {
             VStack(alignment: .leading, spacing: 0) {
                 if let urlString = product2.urlsImages?.split(separator: ";").first,
                    let url = URL(string: String(urlString)) {
@@ -44,6 +44,20 @@ struct ProductCard2View: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.gray)
                 }
+                
+                Button(action: {
+                    // TODO: delete
+                }) {
+                    Text("Delete")
+                        .font(.system(size: 16, design: .default))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 10)
+                        .background(Color(red: 1, green: 0, blue: 0))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding(.top, 20)
             }
             .padding(10)
             .background(Color.white)
