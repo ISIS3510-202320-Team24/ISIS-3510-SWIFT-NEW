@@ -28,7 +28,7 @@ struct PostsView: View {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(filteredProducts, id: \.name) { product in
                                 ZStack {
-                                    ProductCard2View(product2: product)
+                                    ProductCard2View(product2: product, controller: self.controller)
                                 }
                             }
                         }
@@ -79,6 +79,17 @@ struct PostsView: View {
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
+                            .padding(.top, 10)
+                        
+                        Button(action: {
+                            controller.userProducts = []
+                            UserDefaults.standard.removeObject(forKey: "userPosts")
+                            controller.fetchProductsByUserID(id: userID)
+                            }) {
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
+                            }
                             .padding(.top, 10)
                         
                         Spacer()
