@@ -118,6 +118,7 @@ struct ProfileView: View {
             }
             
             Button(action: {
+                profileController.nextScreen = "LoginView"
                 let defaults = UserDefaults.standard
                 defaults.removeObject(forKey: "userName")
                 defaults.removeObject(forKey: "userPhone")
@@ -128,8 +129,10 @@ struct ProfileView: View {
                 defaults.removeObject(forKey: "userPosts")
                 defaults.removeObject(forKey: "allProducts")
                 defaults.removeObject(forKey: "recommendedProducts")
+                
+                
        
-                profileController.nextScreen = "SignUpView"
+                
             }) {
                 Text("Logout")
                     .font(.system(size: 22, weight: .bold, design: .default))
@@ -145,7 +148,7 @@ struct ProfileView: View {
         .background(
             NavigationLink(
                 destination: LoginView(),
-                tag: "SignUpView",
+                tag: "LoginView",
                 selection: $profileController.nextScreen,
                 label: {
                     EmptyView()
