@@ -91,6 +91,8 @@ struct LoginView: View {
         defaults.set(user.phone, forKey: "userPhone")
         defaults.set(user.degree, forKey: "userDegree")
         defaults.removeObject(forKey: "userPosts")
+        defaults.removeObject(forKey: "allProducts")
+        defaults.removeObject(forKey: "recommendedProducts")
     }
     
     var body: some View {

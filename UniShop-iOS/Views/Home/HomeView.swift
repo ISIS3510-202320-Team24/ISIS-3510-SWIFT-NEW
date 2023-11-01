@@ -50,7 +50,7 @@ struct HomeView: View {
                 }
                 .background(GeometryReader {
                     Color.clear.preference(key: ViewOffsetKey.self,
-                                           value: -$0.frame(in: .named("scroll")).minY)
+                           value: -$0.frame(in: .named("scroll")).minY)
                 })
                 
                 if viewModel.isLoading {
@@ -81,10 +81,29 @@ struct HomeView: View {
                         .padding(.top, 10)
                     
                     HStack {
-                        Text(selectedCategory)
+                        Text(selectedCategory + " (\(viewModel.products.count))")
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
+                            .padding(.top, 10)
+                        
+                        Button(action: {
+                            viewModel.products = []
+                            let defaults = UserDefaults.standard
+                            if (selectedCategory == "All Products") {
+                                defaults.removeObject(forKey: "allProducts")
+                                viewModel.fetchProducts()
+                            } else if (selectedCategory == "Recommended") {
+                                defaults.removeObject(forKey: "recommendedProducts")
+                                viewModel.fetchRecommendedProducts()
+                            } else if (selectedCategory == "Bargains") {
+                                viewModel.fetchBargainProducts()
+                            }
+                            }) {
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
+                            }
                             .padding(.top, 10)
                         
                         Spacer()

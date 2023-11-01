@@ -116,7 +116,7 @@ class PostsController: ObservableObject {
         }
 
         do {
-            userProducts = try JSONDecoder().decode([Product2].self, from: encodedData)
+            self.userProducts = try JSONDecoder().decode([Product2].self, from: encodedData)
         } catch {
             print("Failed to decode user products from local storage:", error)
         }

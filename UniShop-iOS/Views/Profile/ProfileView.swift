@@ -120,13 +120,16 @@ struct ProfileView: View {
             }
             
             Button(action: {
-                UserDefaults.standard.removeObject(forKey: "userName")
-                UserDefaults.standard.removeObject(forKey: "userPhone")
-                UserDefaults.standard.removeObject(forKey: "username")
-                UserDefaults.standard.removeObject(forKey: "userEmail")
-                UserDefaults.standard.removeObject(forKey: "userDegree")
-                UserDefaults.standard.removeObject(forKey: "userID")
-                UserDefaults.standard.removeObject(forKey: "userPosts")
+                let defaults = UserDefaults.standard
+                defaults.removeObject(forKey: "userName")
+                defaults.removeObject(forKey: "userPhone")
+                defaults.removeObject(forKey: "username")
+                defaults.removeObject(forKey: "userEmail")
+                defaults.removeObject(forKey: "userDegree")
+                defaults.removeObject(forKey: "userID")
+                defaults.removeObject(forKey: "userPosts")
+                defaults.removeObject(forKey: "allProducts")
+                defaults.removeObject(forKey: "recommendedProducts")
        
                 profileController.nextScreen = "SignUpView"
             }) {
