@@ -10,12 +10,12 @@ struct PostsView: View {
     @State private var showAlert = false
     @State private var userID: String = UserDefaults.standard.string(forKey: "userID") ?? "ID"
     
-    var filteredProducts: [Product2] {
+    var filteredProducts: [Product] {
         if searchText.isEmpty {
             return controller.userProducts
         } else {
             return controller.userProducts.filter { product in
-                product.name?.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: "")) ?? false
+                product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
             }
         }
     }
@@ -28,7 +28,7 @@ struct PostsView: View {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(filteredProducts, id: \.name) { product in
                                 ZStack {
-                                    ProductCard2View(product2: product, controller: self.controller)
+                                    ProductCard2View(product: product, controller: self.controller)
                                 }
                             }
                         }
