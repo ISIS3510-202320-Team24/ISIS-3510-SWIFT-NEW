@@ -155,40 +155,7 @@ struct NewPostView: View {
     func createNewPost() {
         
         var url = "https://i.pinimg.com/originals/80/b5/81/80b5813d8ad81a765ca47ebc59a65ac3.jpg"
-        if (name.lowercased().contains("cuaderno")||name.lowercased().contains("notebook")){
-            url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Cahier_Atoma_ouvert.jpg/1200px-Cahier_Atoma_ouvert.jpg"
-        }
-        else if (name.lowercased().contains("computador")||name.lowercased().contains("computer")){
-            url = "https://www.compudemano.com/wp-content/uploads/2022/12/asus-computador-portatil-x515-x515ea-bq2601-300x300.png.webp"
-        }
-        else if (name.lowercased().contains("empanada")||name.lowercased().contains("patty")){
-            url = "https://media-cdn.tripadvisor.com/media/photo-s/15/92/c9/42/photo2jpg.jpg"
-            
-        }
-        else if (name.lowercased().contains("libro")||name.lowercased().contains("book")){
-            url = "https://belencasado.files.wordpress.com/2011/01/pagina-libro-abierto.jpg"
-            
-        }
-        else if (name.lowercased().contains("esfero")||name.lowercased().contains("pen")){
-            url = "https://http2.mlstatic.com/D_NQ_NP_866898-MCO25947086379_092017-O.webp"
-            
-        }
-        else if (name.lowercased().contains("marcadores")||name.lowercased().contains("markers")){
-            url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzfbOgWA-CjE3Q1SGDrUk7nUSds2zlPNj_UQ&usqp=CAU"
-            
-        }
-        else if (name.lowercased().contains("plastilina")||name.lowercased().contains("clay")){
-            url = "https://www.papeleriacrearte.com/wp-content/uploads/2020/07/plastilinagrande-e1595608611259.jpgU"
-            
-        }
-        else if (name.lowercased().contains("colores")||name.lowercased().contains("colors")){
-            url = "https://medios.papeleriamodelo.com/wp-content/uploads/2020/06/colores-norma-36.jpg"
-            
-        }
-        else if (name.lowercased().contains("cartulina")||name.lowercased().contains("cardboard")){
-            url = "https://cdnx.jumpseller.com/la-cali/image/11154995/resize/810/810?1642599457"
-            
-        }
+        
         // Crear el objeto de solicitud JSON con los datos del formulario
         let postData: [String: Any] = [
             "object": [
@@ -225,15 +192,13 @@ struct NewPostView: View {
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let dataResponse = json["data"] as? [String: Any] {
                         if let insertPostOne = dataResponse["insert_post_one"] as? [String: Any] {
-                            // La publicación se creó con éxito
                             alertMessage = "Publicación creada con éxito"
                             showAlert = true
-                            UserDefaults.standard.removeObject(forKey: "userPosts")
-                            UserDefaults.standard.removeObject(forKey: "allProducts")
-                            UserDefaults.standard.removeObject(forKey: "recommendedProducts")
-                            // Puedes realizar acciones adicionales aquí si es necesario
+                            let defaults = UserDefaults.standard;
+                            defaults.removeObject(forKey: "userPosts")
+                            defaults.removeObject(forKey: "allProducts")
+                            defaults.removeObject(forKey: "recommendedProducts")
                         } else if let errors = dataResponse["errors"] as? [[String: Any]] {
-                            // Maneja los errores si ocurrieron durante la creación de la publicación
                             for error in errors {
                                 if let message = error["message"] as? String {
                                     alertMessage = "Error: \(message)"
@@ -251,9 +216,10 @@ struct NewPostView: View {
         alertMessage = "Successfully published!"
         isAlertSuccess = true
         showAlert = true
-        UserDefaults.standard.removeObject(forKey: "userPosts")
-        UserDefaults.standard.removeObject(forKey: "allProducts")
-        UserDefaults.standard.removeObject(forKey: "recommendedProducts")
+        let defaults = UserDefaults.standard;
+        defaults.removeObject(forKey: "userPosts")
+        defaults.removeObject(forKey: "allProducts")
+        defaults.removeObject(forKey: "recommendedProducts")
     }
     func allFieldsAreFilled() -> Bool {
         // Verifica que name, description y subject no contengan solo espacios

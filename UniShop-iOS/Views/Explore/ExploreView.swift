@@ -1,8 +1,13 @@
 import SwiftUI
 
+
 struct ExploreView: View {
     @StateObject var exploreViewModel = ExploreViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var networkManager: NetworkManager
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -133,6 +138,23 @@ struct ExploreView: View {
                 .background(Color.white)
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
+                .onAppear {
+                    // Configura un temporizador para verificar la conexión cada 3 segundos
+                    Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                        self.checkInternetConnection()
+                    }
+                }
+                
+                .alert(isPresented: $showAlert) {
+                    SwiftUI.Alert(
+                        title: Text("Estado de la conexión"),
+                        message: Text(alertMessage),
+                        dismissButton: .default(Text("OK")) {
+                            showAlert = false
+                        }
+                    )
+                }
+                
                 Group {
                     NavigationLink(destination: SignUpView(),
                                    tag: "SignUpView",
@@ -157,10 +179,23 @@ struct ExploreView: View {
             .hideNavigationBar()
             .onAppear {}
             .gesture(DragGesture().onChanged { _ in })
+            
+        }
+    }
+    func checkInternetConnection() {
+        // Verifica la conexión a Internet utilizando networkManager
+        let isConnected = networkManager.hasInternetConnection
+        if isConnected {
+            showAlert = false
+        } else {
+            // No hay conexión a Internet, muestra un mensaje de error solo si no se muestra actualmente.
+            if !showAlert {
+                alertMessage = "No hay conexión a Internet"
+                showAlert = true
+            }
         }
     }
 }
-
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         ExploreView()

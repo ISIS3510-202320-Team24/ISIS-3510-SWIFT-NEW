@@ -2,9 +2,10 @@ import SwiftUI
 
 struct ProductCard2View: View {
     var product2: Product2
+    @ObservedObject var controller: PostsController
     
     var body: some View {
-        NavigationLink(destination: ProductDetailView(productId: product2.id ?? "")) {
+        NavigationLink(destination: ProductDetailView(productId: product2.id ?? "", owner: true)) {
             VStack(alignment: .leading, spacing: 0) {
                 if let urlString = product2.urlsImages?.split(separator: ";").first,
                    let url = URL(string: String(urlString)) {
@@ -44,6 +45,18 @@ struct ProductCard2View: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.gray)
                 }
+                
+                Button(action: deleteProduct) {
+                    Text("Delete")
+                        .font(.system(size: 16, design: .default))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 10)
+                        .background(Color(red: 1, green: 0, blue: 0))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding(.top, 20)
             }
             .padding(10)
             .background(Color.white)
@@ -51,6 +64,16 @@ struct ProductCard2View: View {
             .shadow(radius: 5)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+    
+    func deleteProduct() {
+        self.controller.deletePostById(id: product2.id ?? "") { success in
+            if success {
+                DispatchQueue.main.async {
+                    self.controller.userProducts.removeAll { $0.id == product2.id }
+                }
+            }
+        }
     }
 }
 
