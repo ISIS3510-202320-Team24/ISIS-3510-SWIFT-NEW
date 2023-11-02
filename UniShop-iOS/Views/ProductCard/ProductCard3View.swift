@@ -1,8 +1,9 @@
 import SwiftUI
 
-struct ProductCard2View: View {
+struct ProductCard3View: View {
     var product: Product
-    @ObservedObject var controller: PostsController
+    var userId: String
+    @ObservedObject var controller: FavoritesController
     
     var body: some View {
         NavigationLink(destination: ProductDetailView(productId: product.id, owner: true)) {
@@ -46,8 +47,8 @@ struct ProductCard2View: View {
                         .foregroundColor(.gray)
                 }
                 
-                Button(action: deleteProduct) {
-                    Text("Delete")
+                Button(action: removeProduct) {
+                    Text("Remove")
                         .font(.system(size: 16, design: .default))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 5)
@@ -66,11 +67,11 @@ struct ProductCard2View: View {
         .buttonStyle(PlainButtonStyle())
     }
     
-    func deleteProduct() {
-        self.controller.deletePostById(id: product.id) { success in
+    func removeProduct() {
+        self.controller.deleteFavoritesPostById(post_id: product.id, user_id: userId) { success in
             if success {
                 DispatchQueue.main.async {
-                    self.controller.userProducts.removeAll { $0.id == product.id }
+                    self.controller.userFavoriteProducts.removeAll { $0.id == product.id }
                 }
             }
         }

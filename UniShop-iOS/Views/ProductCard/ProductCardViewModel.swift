@@ -5,6 +5,14 @@ struct Response: Codable {
     let post: [Product]
 }
 
+struct FavoritesResponse: Codable {
+    let favorites: [FavoritesData]
+}
+
+struct FavoritesData: Codable {
+    let post: Product
+}
+
 struct ProductResponse: Codable {
     let data: ProductData
 }
@@ -24,6 +32,8 @@ struct Product: Codable {
     let urlsImages: String
     let date: String
     let name: String
+    let category: String
+    let sold: Bool
     let user: User
 }
 
