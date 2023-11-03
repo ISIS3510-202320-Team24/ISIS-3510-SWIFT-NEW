@@ -40,11 +40,6 @@ struct ProductCard2View: View {
                         .frame(height: 20)
                     
                     Spacer()
-                    
-                    Image(systemName: "heart")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.gray)
                 }
                 
                 Button(action: deleteProduct) {
@@ -57,18 +52,7 @@ struct ProductCard2View: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }.padding(.top, 20)
-                if product.sold == false{
-                    Button(action: soldProduct) {
-                        Text("Sold")
-                            .font(.system(size: 16, design: .default))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 10)
-                            .background(Color.cyan)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }.padding(.top, 20)
-                }else{
+                if product.sold {
                     Button(action: unsoldProduct) {
                         Text("Un-Sold")
                             .font(.system(size: 16, design: .default))
@@ -78,7 +62,18 @@ struct ProductCard2View: View {
                             .background(Color.cyan)
                             .foregroundColor(.white)
                             .cornerRadius(8)
-                    }.padding(.top, 20)
+                    }.padding(.top, 25)
+                }else{
+                    Button(action: soldProduct) {
+                        Text("Sold")
+                            .font(.system(size: 16, design: .default))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(Color.cyan)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }.padding(.top, 5)
                 }
                 
             }

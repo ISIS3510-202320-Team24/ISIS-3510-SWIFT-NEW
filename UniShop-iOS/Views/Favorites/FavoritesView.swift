@@ -62,7 +62,7 @@ struct FavoritesView: View {
                         .padding(.top, 125)
                     }
                 } else if filteredProducts.isEmpty {
-                    Text("You have no posts currently")
+                    Text("You have no favorites currently")
                         .font(.title2)
                         .foregroundColor(.gray)
                         .padding(.top, 400)
@@ -98,10 +98,11 @@ struct FavoritesView: View {
                         
                         Button(action: DeleteFavProduct) {
                             Text("Delete all")
-                                .font(.system(size: 16, design: .default))
+                                .font(.system(size: 20, design: .default))
                                 .foregroundColor(.red)
                         }
-                        .padding([.top, .trailing], 10)
+                        .padding(.top, 10)
+                        .padding([.leading, .trailing], 15)
                     }
                     
                 }
