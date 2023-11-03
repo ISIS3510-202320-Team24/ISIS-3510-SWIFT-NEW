@@ -6,6 +6,8 @@ class NewPostViewModel: ObservableObject {
     @Published var alertTitle = ""
     @Published var alertDescription = ""
     @Published var descriptionText: String = ""
+    @Published var selectedCarrera: String = "ISIS"
+    @Published var selectedCategory: String = "Others"
     @Published var descripptioonText: String = ""
     @Published var isActionSheetShow: Bool = false
     @Published var isImagePickerShow: Bool = false
