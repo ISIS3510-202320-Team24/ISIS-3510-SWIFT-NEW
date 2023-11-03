@@ -15,14 +15,17 @@ extension View {
 }
 
 struct ProductDetailView: View {
-    @ObservedObject var viewModel: ProductDetailViewModel
     var productId: String
     var owner: Bool
+    @ObservedObject var viewModel: ProductDetailViewModel
+    @ObservedObject var controller: PostsController
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     init(productId: String, owner: Bool = false) {
         self.productId = productId
         self.owner = owner
         self.viewModel = ProductDetailViewModel()
+        self.controller = PostsController();
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
@@ -81,7 +84,14 @@ struct ProductDetailView: View {
                     VStack {
                         if (self.owner || (self.viewModel.product?.user.username == UserDefaults.standard.string(forKey: "username") && self.viewModel.product?.user.name == UserDefaults.standard.string(forKey: "userName"))) {
                             Button(action: {
-                                // TODO: handle delete action
+                                controller.deletePostById(id: self.productId) { success in
+                                    if success {
+                                        DispatchQueue.main.async {
+                                            viewModel.product = nil
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        }
+                                    }
+                                }
                             }) {
                                 Text("Delete")
                                     .font(.custom("Archivo-Regular", size: 16))
@@ -93,9 +103,10 @@ struct ProductDetailView: View {
                             }
                             .padding([.leading, .trailing], 15)
                             .padding(.top, 12)
+
                         } else {
                             Button(action: {
-                                // handle contact seller action
+                                // TODO: handle contact seller action
                             }) {
                                 Text("Contact Seller")
                                     .font(.custom("Archivo-Regular", size: 16))

@@ -5,6 +5,14 @@ struct Response: Codable {
     let post: [Product]
 }
 
+struct FavoritesResponse: Codable {
+    let favorites: [FavoritesData]
+}
+
+struct FavoritesData: Codable {
+    let post: Product
+}
+
 struct ProductResponse: Codable {
     let data: ProductData
 }
@@ -24,6 +32,8 @@ struct Product: Codable {
     let urlsImages: String
     let date: String
     let name: String
+    let category: String
+    var sold: Bool
     let user: User
 }
 
@@ -128,6 +138,9 @@ class ProductCardViewModel: ObservableObject {
                 let response = try JSONDecoder().decode(Response.self, from: data)
                 DispatchQueue.main.async {
                     self.products = response.post
+                    self.products = self.products.filter { product in
+                        product.sold == false
+                    }
                     self.allProducts = self.products
                     self.saveToLocalStorageAll()
                     self.isLoading = false

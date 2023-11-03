@@ -23,7 +23,9 @@ struct HomeView: View {
     
     var filteredProducts: [Product] {
         if searchText.isEmpty {
-            return viewModel.products
+            return viewModel.products.filter { product in
+                product.sold == false
+            }
         } else {
             return viewModel.products.filter { product in
                 product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))

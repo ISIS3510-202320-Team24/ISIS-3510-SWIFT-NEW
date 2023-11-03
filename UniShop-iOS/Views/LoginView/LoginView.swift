@@ -48,7 +48,6 @@ struct LoginView: View {
             
             do {
                 let usersResponse = try JSONDecoder().decode(UsersResponseLog.self, from: data)
-                print("Decoding successful: \(usersResponse)")
                 
                 if let user = usersResponse.users.first(where: { $0.email == loginViewModel.emailText && $0.password == loginViewModel.passwordText }) {
                     print("User found: \(user)")
