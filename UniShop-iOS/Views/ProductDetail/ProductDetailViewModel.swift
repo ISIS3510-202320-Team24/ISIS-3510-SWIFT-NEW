@@ -14,6 +14,8 @@ struct ProductDetail: Codable {
     let urlsImages: String
     let date: String
     let name: String
+    let category: String
+    let sold: Bool
     let user: User
 }
 

@@ -19,6 +19,7 @@ struct ProductDetailView: View {
     var owner: Bool
     @ObservedObject var viewModel: ProductDetailViewModel
     @ObservedObject var controller: PostsController
+    @ObservedObject var favController: FavoritesController
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     init(productId: String, owner: Bool = false) {
@@ -26,6 +27,7 @@ struct ProductDetailView: View {
         self.owner = owner
         self.viewModel = ProductDetailViewModel()
         self.controller = PostsController();
+        self.favController = FavoritesController();
         
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
@@ -78,7 +80,9 @@ struct ProductDetailView: View {
                     infoRow(title: "Price:", value: product.price)
                     infoRow(title: "Status:", value: product.new ? "New" : "Recycled")
                     infoRow(title: "Subject/ Degree:", value: product.subject + ", " + product.degree)
+                    infoRow(title: "Category:", value: product.category)
                     infoRow(title: "Sold by:", value: product.user.name + " - @" + product.user.username)
+                    infoRow(title: "Sold:", value: product.sold ? "Yes" : "No")
                     infoRow(title: "Posted:", value: product.date)
 
                     VStack {
@@ -103,8 +107,24 @@ struct ProductDetailView: View {
                             }
                             .padding([.leading, .trailing], 15)
                             .padding(.top, 12)
-
+                            .padding(.bottom, 35)
                         } else {
+                            Button(action: {
+                                favController.addFavoritePostById(post_id: self.productId, user_id: UserDefaults.standard.string(forKey: "userID") ?? "") { success in
+                                    if success {}
+                                }
+                            }) {
+                                Text("Add to favorites")
+                                    .font(.custom("Archivo-Regular", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.cyan)
+                                    .cornerRadius(8)
+                            }
+                            .padding([.leading, .trailing], 15)
+                            .padding(.top, 25)
+                            
                             Button(action: {
                                 // TODO: handle contact seller action
                             }) {
@@ -117,7 +137,8 @@ struct ProductDetailView: View {
                                     .cornerRadius(8)
                             }
                             .padding([.leading, .trailing], 15)
-                            .padding(.top, 12)
+                            .padding(.top, 5)
+                            .padding(.bottom, 35)
                         }
                     }
                 } else {
