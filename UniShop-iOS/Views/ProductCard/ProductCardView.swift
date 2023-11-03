@@ -38,11 +38,6 @@ struct ProductCardView: View {
                         .frame(height: 20)
                     
                     Spacer()
-                    
-                    Image(systemName: "heart")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .foregroundColor(.gray)
                 }
             }
             .padding(10)
