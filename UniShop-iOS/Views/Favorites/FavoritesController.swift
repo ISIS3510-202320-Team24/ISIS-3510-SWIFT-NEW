@@ -156,8 +156,7 @@ class FavoritesController: ObservableObject {
     }
     
     func deleteAllFavoritesPostById(user_id: String , completion: @escaping (Bool) -> Void) {
-        self.userFavoriteProducts = []
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.main.async {
             guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/favorites/delete") else { return }
             
             var request = URLRequest(url: url)
