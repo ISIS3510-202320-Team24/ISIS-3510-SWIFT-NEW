@@ -192,13 +192,15 @@ struct NewPostView: View {
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let dataResponse = json["data"] as? [String: Any] {
                         if let insertPostOne = dataResponse["insert_post_one"] as? [String: Any] {
+                            // La publicación se creó con éxito
                             alertMessage = "Publicación creada con éxito"
                             showAlert = true
-                            let defaults = UserDefaults.standard;
-                            defaults.removeObject(forKey: "userPosts")
-                            defaults.removeObject(forKey: "allProducts")
-                            defaults.removeObject(forKey: "recommendedProducts")
+                            UserDefaults.standard.removeObject(forKey: "userPosts")
+                            UserDefaults.standard.removeObject(forKey: "allProducts")
+                            UserDefaults.standard.removeObject(forKey: "recommendedProducts")
+                            // Puedes realizar acciones adicionales aquí si es necesario
                         } else if let errors = dataResponse["errors"] as? [[String: Any]] {
+                            // Maneja los errores si ocurrieron durante la creación de la publicación
                             for error in errors {
                                 if let message = error["message"] as? String {
                                     alertMessage = "Error: \(message)"
@@ -216,10 +218,9 @@ struct NewPostView: View {
         alertMessage = "Successfully published!"
         isAlertSuccess = true
         showAlert = true
-        let defaults = UserDefaults.standard;
-        defaults.removeObject(forKey: "userPosts")
-        defaults.removeObject(forKey: "allProducts")
-        defaults.removeObject(forKey: "recommendedProducts")
+        UserDefaults.standard.removeObject(forKey: "userPosts")
+        UserDefaults.standard.removeObject(forKey: "allProducts")
+        UserDefaults.standard.removeObject(forKey: "recommendedProducts")
     }
     func allFieldsAreFilled() -> Bool {
         // Verifica que name, description y subject no contengan solo espacios

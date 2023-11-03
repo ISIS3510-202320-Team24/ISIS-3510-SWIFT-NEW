@@ -44,7 +44,7 @@ class HomeViewModel: ObservableObject {
                 
                 self.elapsedTime += 1
                 
-                if self.elapsedTime >= 100 {
+                if self.elapsedTime >= 120 {
                     self.timerCancellable?.cancel()
                     print("Timer stopped")
                 } else {

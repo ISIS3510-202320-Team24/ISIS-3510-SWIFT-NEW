@@ -10,12 +10,12 @@ struct PostsView: View {
     @State private var showAlert = false
     @State private var userID: String = UserDefaults.standard.string(forKey: "userID") ?? "ID"
     
-    var filteredProducts: [Product] {
+    var filteredProducts: [Product2] {
         if searchText.isEmpty {
             return controller.userProducts
         } else {
             return controller.userProducts.filter { product in
-                product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
+                product.name?.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: "")) ?? false
             }
         }
     }
@@ -28,7 +28,7 @@ struct PostsView: View {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(filteredProducts, id: \.name) { product in
                                 ZStack {
-                                    ProductCard2View(product: product, controller: self.controller)
+                                    ProductCard2View(product2: product)
                                 }
                             }
                         }
@@ -79,17 +79,6 @@ struct PostsView: View {
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
-                            .padding(.top, 10)
-                        
-                        Button(action: {
-                            controller.userProducts = []
-                            UserDefaults.standard.removeObject(forKey: "userPosts")
-                            controller.fetchProductsByUserID(id: userID)
-                            }) {
-                                Image(systemName: "arrow.clockwise")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
-                            }
                             .padding(.top, 10)
                         
                         Spacer()

@@ -1,14 +1,12 @@
 import SwiftUI
 
 struct ProductCard2View: View {
-    var product: Product
-    @ObservedObject var controller: PostsController
-    @State private var userID: String = UserDefaults.standard.string(forKey: "userID") ?? "ID"
+    var product2: Product2
     
     var body: some View {
-        NavigationLink(destination: ProductDetailView(productId: product.id, owner: true)) {
+        NavigationLink(destination: ProductDetailView(productId: product2.id ?? "", owner: true)) {
             VStack(alignment: .leading, spacing: 0) {
-                if let urlString = product.urlsImages.split(separator: ";").first,
+                if let urlString = product2.urlsImages?.split(separator: ";").first,
                    let url = URL(string: String(urlString)) {
                     AsyncImage(url: url) { image in
                         image.resizable()
@@ -23,18 +21,18 @@ struct ProductCard2View: View {
                         .frame(height: 150)
                 }
                 
-                Text(product.name)
+                Text(product2.name ?? "")
                     .font(.custom("Helvetica", size: 18))
                     .frame(height: 40)
                 
                 
-                Text(product.price)
+                Text(product2.price ?? "0")
                     .font(.custom("Helvetica", size: 16))
                     .foregroundColor(Color(red: 0.241, green: 0.257, blue: 0.222))
                     .frame(height: 30)
                 
                 HStack {
-                    Text(product.user.username)
+                    Text(product2.user?.username ?? "")
                         .font(.custom("Helvetica", size: 15))
                         .foregroundColor(Color(red: 0.541, green: 0.557, blue: 0.522))
                         .frame(height: 20)
@@ -47,7 +45,9 @@ struct ProductCard2View: View {
                         .foregroundColor(.gray)
                 }
                 
-                Button(action: deleteProduct) {
+                Button(action: {
+                    // TODO: delete
+                }) {
                     Text("Delete")
                         .font(.system(size: 16, design: .default))
                         .frame(maxWidth: .infinity)
@@ -56,31 +56,8 @@ struct ProductCard2View: View {
                         .background(Color(red: 1, green: 0, blue: 0))
                         .foregroundColor(.white)
                         .cornerRadius(8)
-                }.padding(.top, 20)
-                if product.sold == false{
-                    Button(action: soldProduct) {
-                        Text("Sold")
-                            .font(.system(size: 16, design: .default))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 10)
-                            .background(Color.cyan)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }.padding(.top, 20)
-                }else{
-                    Button(action: unsoldProduct) {
-                        Text("Un-Sold")
-                            .font(.system(size: 16, design: .default))
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 10)
-                            .background(Color.cyan)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }.padding(.top, 20)
                 }
-                
+                .padding(.top, 20)
             }
             .padding(10)
             .background(Color.white)
@@ -88,26 +65,6 @@ struct ProductCard2View: View {
             .shadow(radius: 5)
         }
         .buttonStyle(PlainButtonStyle())
-    }
-    
-    func deleteProduct() {
-        self.controller.deletePostById(id: product.id) { success in
-            if success {
-            }
-        }
-    }
-    func soldProduct() {
-        self.controller.sold(user_id: userID, post_id: product.id) { success in
-            if success {
-            }
-        }
-    }
-    
-    func unsoldProduct() {
-        self.controller.unsold(user_id: userID, post_id: product.id) { success in
-            if success {
-            }
-        }
     }
 }
 
