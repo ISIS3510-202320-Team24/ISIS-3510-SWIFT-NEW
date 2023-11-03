@@ -87,9 +87,9 @@ struct SignUpView: View {
                                 .padding(.top, getRelativeHeight(9.0))
                                 .padding(.horizontal, getRelativeWidth(31.0))
                                 .padding(.bottom, getRelativeHeight(40.0))
-                                .padding(.bottom, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                                .padding(.bottom, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 40 : 0)
                                 .padding(.bottom, signUpViewModel.rowflagofcolombiText.count < 10  ? 30 : 0)
-                                .padding(.bottom, !signUpViewModel.isValidMailText ? 20 : 0)
+                                .padding(.bottom, !signUpViewModel.isValidMailText ? 40 : 0)
                                 .padding(.bottom, !signUpViewModel.isValidPasswordText ? 50 : 0)
                             
                         }
@@ -303,10 +303,14 @@ struct SignUpView: View {
                                 }
                             }
                             Group{
+                                Text("Select your degree")
+                                .offset(x: -getRelativeHeight(110))
+                            }
+                            Group{
                                 
                                 HStack {
-                                    Picker("Select your degree", selection: $signUpViewModel.selectedCarrera) {
-                                        ForEach(["Select your degree","ISIS", "MATE", "ADMIN", "IIND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
+                                    Picker("ISIS", selection: $signUpViewModel.selectedCarrera) {
+                                        ForEach(["ISIS", "MATE", "ADMIN", "IND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
                                             Text(carrera).tag(carrera)
                                                 .foregroundColor(Color.blue)
                                         }
@@ -330,7 +334,7 @@ struct SignUpView: View {
                             .overlay(RoundedCorners().stroke(Color.black, lineWidth: 1))
                             .background(RoundedCorners().fill(Color(red: 1, green: 0.776, blue: 0)))
                             .padding(.horizontal, getRelativeWidth(30.0))
-                            .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                            .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 40 : 0)
                             .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
                             .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
                             .padding(.top, !signUpViewModel.isValidPasswordText ? 50 : 0)
@@ -423,9 +427,9 @@ struct SignUpView: View {
                                     .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .center)
                                     .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
                                         .fill(Color(red: 1, green: 0.776, blue: 0)))
-                                    .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
-                                    .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
-                                    .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
+                                    .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 50 : 0)
+                                    .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 50 : 0)
+                                    .padding(.top, !signUpViewModel.isValidMailText ? 40 : 0)
                                     .padding(.top, !signUpViewModel.isValidPasswordText ? 150 : 0)
                             }
                             .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
@@ -444,7 +448,7 @@ struct SignUpView: View {
                                 .frame(width: getRelativeWidth(194.0), height: getRelativeHeight(20.0), alignment: .topLeading)
                                 .padding(.top, getRelativeHeight(21.0))
                                 .padding(.horizontal, getRelativeWidth(29.0))
-                                .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 20 : 0)
+                                .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 40 : 0)
                                 .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 20 : 0)
                                 .padding(.top, !signUpViewModel.isValidMailText ? 20 : 0)
                                 .padding(.top, !signUpViewModel.isValidPasswordText ? 50 : 0)
