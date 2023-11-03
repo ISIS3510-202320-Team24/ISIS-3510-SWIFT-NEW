@@ -12,14 +12,16 @@ struct FavoritesView: View {
     
     var filteredProducts: [Product] {
         if searchText.isEmpty {
-            return controller.userFavoriteProducts
+            return controller.userFavoriteProducts.filter { product in
+                product.sold == false
+            }
         } else {
             return controller.userFavoriteProducts.filter { product in
                 product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
             }
         }
     }
-
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -52,7 +54,7 @@ struct FavoritesView: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: .yellow))
                                 .scaleEffect(2.0, anchor: .center)
                                 .padding(.bottom, 15)
-
+                            
                             Text(controller.loadingMessage)
                                 .foregroundColor(.black)
                                 .font(.system(size: 18))
@@ -75,7 +77,7 @@ struct FavoritesView: View {
                         .padding(.top, 10)
                     
                     HStack {
-                        Text("Your Favorites (\(controller.userFavoriteProducts.count))")
+                        Text("Favorites (\(controller.userFavoriteProducts.count))")
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
@@ -85,15 +87,23 @@ struct FavoritesView: View {
                             controller.userFavoriteProducts = []
                             UserDefaults.standard.removeObject(forKey: "userPosts")
                             controller.fetchFavoriteProductsByUserID(id: userID)
-                            }) {
-                                Image(systemName: "arrow.clockwise")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
-                            }
-                            .padding(.top, 10)
+                        }) {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 20))
+                                .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
+                        }
+                        .padding(.top, 10)
                         
                         Spacer()
+                        
+                        Button(action: DeleteFavProduct) {
+                            Text("Delete all")
+                                .font(.system(size: 16, design: .default))
+                                .foregroundColor(.red)
+                        }
+                        .padding([.top, .trailing], 10)
                     }
+                    
                 }
                 .padding(.top, scrollOffset > 0 ? 0 : -scrollOffset)
                 .padding(.bottom, 10 + navigationBarHeight)
@@ -104,7 +114,7 @@ struct FavoritesView: View {
             .onAppear {
                 controller.fetchFavoriteProductsByUserID(id: userID)
             }
-
+            
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .onPreferenceChange(ViewOffsetKey.self) {
@@ -113,8 +123,13 @@ struct FavoritesView: View {
             .coordinateSpace(name: "scroll")
         }
     }
+    func DeleteFavProduct() {
+        self.controller.deleteAllFavoritesPostById(user_id: userID) { success in
+            if success {
+            }
+        }
+    }
 }
-
 
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {

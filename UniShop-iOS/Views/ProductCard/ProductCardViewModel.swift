@@ -33,7 +33,7 @@ struct Product: Codable {
     let date: String
     let name: String
     let category: String
-    let sold: Bool
+    var sold: Bool
     let user: User
 }
 
@@ -138,6 +138,9 @@ class ProductCardViewModel: ObservableObject {
                 let response = try JSONDecoder().decode(Response.self, from: data)
                 DispatchQueue.main.async {
                     self.products = response.post
+                    self.products = self.products.filter { product in
+                        product.sold == false
+                    }
                     self.allProducts = self.products
                     self.saveToLocalStorageAll()
                     self.isLoading = false

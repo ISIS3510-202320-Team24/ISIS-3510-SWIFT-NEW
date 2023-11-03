@@ -3,6 +3,7 @@ import SwiftUI
 struct ProductCard2View: View {
     var product: Product
     @ObservedObject var controller: PostsController
+    @State private var userID: String = UserDefaults.standard.string(forKey: "userID") ?? "ID"
     
     var body: some View {
         NavigationLink(destination: ProductDetailView(productId: product.id, owner: true)) {
@@ -55,8 +56,31 @@ struct ProductCard2View: View {
                         .background(Color(red: 1, green: 0, blue: 0))
                         .foregroundColor(.white)
                         .cornerRadius(8)
+                }.padding(.top, 20)
+                if product.sold == false{
+                    Button(action: soldProduct) {
+                        Text("Sold")
+                            .font(.system(size: 16, design: .default))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(Color.cyan)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }.padding(.top, 20)
+                }else{
+                    Button(action: unsoldProduct) {
+                        Text("Un-Sold")
+                            .font(.system(size: 16, design: .default))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(Color.cyan)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }.padding(.top, 20)
                 }
-                .padding(.top, 20)
+                
             }
             .padding(10)
             .background(Color.white)
@@ -69,9 +93,19 @@ struct ProductCard2View: View {
     func deleteProduct() {
         self.controller.deletePostById(id: product.id) { success in
             if success {
-                DispatchQueue.main.async {
-                    self.controller.userProducts.removeAll { $0.id == product.id }
-                }
+            }
+        }
+    }
+    func soldProduct() {
+        self.controller.sold(user_id: userID, post_id: product.id) { success in
+            if success {
+            }
+        }
+    }
+    
+    func unsoldProduct() {
+        self.controller.unsold(user_id: userID, post_id: product.id) { success in
+            if success {
             }
         }
     }

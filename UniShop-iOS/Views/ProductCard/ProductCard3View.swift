@@ -69,10 +69,7 @@ struct ProductCard3View: View {
     
     func removeProduct() {
         self.controller.deleteFavoritesPostById(post_id: product.id, user_id: userId) { success in
-            if success {
-                DispatchQueue.main.async {
-                    self.controller.userFavoriteProducts.removeAll { $0.id == product.id }
-                }
+            if success{
             }
         }
     }
