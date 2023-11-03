@@ -36,7 +36,7 @@ struct NewPostView: View {
                     selectedImage!
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 300, height: 300)
+                        .frame(width: 200, height: 200)
                 }
                 
                 HStack {
@@ -84,35 +84,76 @@ struct NewPostView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 15)
                 
-                TextField("Degree", text: $degree)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding([.leading, .trailing], 15)
-                    .onChange(of: degree) { newValue in
-                        if newValue.count != 4 {
-                            degree = String(newValue.prefix(4))
+                Group{
+                    Text("Select your degree")
+                    .offset(x: -getRelativeHeight(120))
+                }
+                Group{
+                    
+                    HStack {
+                        Picker("ISIS", selection: $newPostViewModel.selectedCarrera) {
+                            ForEach(["ISIS", "MATE", "ADMIN", "IND", "ARQUI", "ARTE", "DISE"], id: \.self) { carrera in
+                                Text(carrera).tag(carrera)
+                                    .foregroundColor(Color.blue)
+                            }
                         }
-                        degree = degree.uppercased()
-                    }
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .leading)
+                        .offset(x: -getRelativeHeight(20))
+                        
+                        
+                    }}
+                
+                Group{
+                    Text("Select the category of your product")
+                    .offset(x: -getRelativeHeight(70))
+                }
+                Group{
+                    
+                    HStack {
+                        Picker("Others", selection: $newPostViewModel.selectedCategory) {
+                            ForEach(["Others","Computers",
+                                     "Tablets",
+                                    " Cell phones",
+                                     "Small electronic supplies",
+                                     "Electronic servomotors",
+                                     "Electronic photocells",
+                                     "Brushes",
+                                     "Spheres",
+                                     "Markers",
+                                     "Paintings",
+                                     "Canvases",
+                                     "Chargers",
+                                     "Clothes and accessories",
+                                     "Furniture",
+                                     "Home clothes"
+                                     ], id: \.self) { carrera in
+                                Text(carrera).tag(carrera)
+                                    .foregroundColor(Color.blue)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .leading)
+                        .offset(x: -getRelativeHeight(20))
+                        
+                        
+                    }}
                 
                 Toggle("New Product", isOn: $isNewProduct)
                     .padding([.leading, .trailing], 15)
                 
                 Button(action: {
                     
-                    if allFieldsAreFilled() {
-                        createNewPost()
-                    }
-                    else if degree.count != 4 || degree.contains(" "){
-                        alertMessage = "Not published, the degree must be 4 letters"
-                        showAlert = true
-                        isAlertSuccess = false
-                        return
-                    }
-                    else if selectedImage == nil {
+                    if  selectedImage == nil {
                         alertMessage = "Not published, you must select an image"
                         showAlert = true
                         isAlertSuccess = false
                         return
+                    }
+    
+                    else if allFieldsAreFilled() {
+                        createNewPost()
+                       
                     }
                     else {
                         alertMessage = "Not published, empty fields or incorrect values"
@@ -159,7 +200,8 @@ struct NewPostView: View {
         // Crear el objeto de solicitud JSON con los datos del formulario
         let postData: [String: Any] = [
             "object": [
-                "degree": degree,
+                "degree": newPostViewModel.selectedCarrera,
+                "category":newPostViewModel.selectedCategory,
                 "description": description,
                 "name": name,
                 "new": isNewProduct,
@@ -226,11 +268,10 @@ struct NewPostView: View {
         let validName = !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         let validDescription = !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         let validSubject = !subject.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        let validDegree = degree.count == 4 && degree.rangeOfCharacter(from: CharacterSet.letters) != nil && degree.rangeOfCharacter(from: CharacterSet.whitespaces) == nil
         let validPrice = !price.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         
         
-        return validName && validDescription && validSubject && validDegree && validPrice
+        return validName && validDescription && validSubject && validPrice
     }
     
     struct NewPostView_Previews: PreviewProvider {
