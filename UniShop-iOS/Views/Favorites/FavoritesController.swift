@@ -110,7 +110,7 @@ class FavoritesController: ObservableObject {
             }
             
             let defaults = UserDefaults.standard;
-            defaults.removeObject(forKey: "userFavoriteProducts")
+            defaults.removeObject(forKey: "userFavorites")
             DispatchQueue.main.async {
                 self.fetchFavoriteProductsByUserID(id: user_id)
             }
@@ -149,49 +149,46 @@ class FavoritesController: ObservableObject {
                 }
                 
                 let defaults = UserDefaults.standard;
-                defaults.removeObject(forKey: "userFavoriteProducts")
+                defaults.removeObject(forKey: "userFavorites")
                 self.fetchFavoriteProductsByUserID(id: user_id)
             }.resume()
         }
     }
     
     func deleteAllFavoritesPostById(user_id: String , completion: @escaping (Bool) -> Void) {
-        DispatchQueue.main.async {
-            guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/favorites/delete") else { return }
+        guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/favorites/delete/user") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
+            let body: [String: Any] = ["user_id":user_id]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "DELETE"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
-            for product in self.userFavoriteProducts{
-                let body: [String: Any] = ["post_id": product.id, "user_id":user_id]
-                request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Network error: \(error)")
+                    completion(false)
+                    return
+                }
                 
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let error = error {
-                        print("Network error: \(error)")
-                        completion(false)
-                        return
-                    }
-                    
-                    if let httpResponse = response as? HTTPURLResponse {
-                        print("HTTP Status Code: \(httpResponse.statusCode)")
-                        if (200...299).contains(httpResponse.statusCode) {
-                            completion(true)
-                        } else {
-                            print("Server returned an error status code.")
-                            completion(false)
-                        }
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("HTTP Status Code: \(httpResponse.statusCode)")
+                    if (200...299).contains(httpResponse.statusCode) {
+                        completion(true)
                     } else {
+                        print("Server returned an error status code.")
                         completion(false)
                     }
-                    
-                }.resume()}
-            let defaults = UserDefaults.standard;
-            defaults.removeObject(forKey: "userFavoriteProducts")
-            self.fetchFavoriteProductsByUserID(id: user_id)
-
-        }
+                } else {
+                    completion(false)
+                }
+                let defaults = UserDefaults.standard;
+                defaults.removeObject(forKey: "userFavorites")
+                DispatchQueue.main.async {
+                    self.fetchFavoriteProductsByUserID(id: user_id)
+                }
+            }.resume()
     }
     
     private func saveToLocalStorage() {

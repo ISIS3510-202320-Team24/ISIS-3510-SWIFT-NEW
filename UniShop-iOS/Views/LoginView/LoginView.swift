@@ -97,7 +97,7 @@ struct LoginView: View {
         defaults.removeObject(forKey: "userPosts")
         defaults.removeObject(forKey: "allProducts")
         defaults.removeObject(forKey: "recommendedProducts")
-        defaults.removeObject(forKey: "userFavoriteProducts")
+        defaults.removeObject(forKey: "userFavorites")
 
     }
     
