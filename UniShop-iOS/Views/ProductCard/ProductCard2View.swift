@@ -62,7 +62,7 @@ struct ProductCard2View: View {
                             .background(Color.cyan)
                             .foregroundColor(.white)
                             .cornerRadius(8)
-                    }.padding(.top, 25)
+                    }.padding(.top, 5)
                 }else{
                     Button(action: soldProduct) {
                         Text("Sold")
