@@ -107,12 +107,10 @@ class PostsController: ObservableObject {
             defaults.removeObject(forKey: "userPosts")
             defaults.removeObject(forKey: "allProducts")
             defaults.removeObject(forKey: "recommendedProducts")
-            defaults.removeObject(forKey: "userFavorites")
+            defaults.removeObject(forKey: "userFavoriteProducts")
             DispatchQueue.main.async {
                 self.fetchProductsByUserID(id: id)
             }
-
-            
         }.resume()
     }
     
@@ -144,6 +142,7 @@ class PostsController: ObservableObject {
             } else {
                 completion(false)
             }
+            
             let defaults = UserDefaults.standard;
             defaults.removeObject(forKey: "userPosts")
             defaults.removeObject(forKey: "allProducts")
@@ -191,7 +190,8 @@ class PostsController: ObservableObject {
             defaults.removeObject(forKey: "userFavoriteProducts")
             DispatchQueue.main.async {
                 self.fetchProductsByUserID(id: user_id)
-            }        }.resume()
+            }
+        }.resume()
         
     }
     
