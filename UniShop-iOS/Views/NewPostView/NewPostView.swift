@@ -109,7 +109,7 @@ struct NewPostView: View {
                 
                 Group{
                     Text("Select the category of your product")
-                        .offset(x: -getRelativeHeight(120))
+                        .offset(x: -getRelativeHeight(57))
                 }
                 Group{
                     
@@ -263,8 +263,13 @@ struct NewPostView: View {
                                 alertMessage = "Error en la solicitud: \(error.localizedDescription)"
                                 showAlert = true
                             }
+                            
                         }.resume()
                     }
+                    let defaults = UserDefaults.standard;
+                    defaults.removeObject(forKey: "userPosts")
+                    defaults.removeObject(forKey: "allProducts")
+                    defaults.removeObject(forKey: "recommendedProducts")
                 } catch {
                     // Handle the error
                     print("Error saving file: \(error)")
@@ -274,10 +279,7 @@ struct NewPostView: View {
         alertMessage = "Successfully published!"
         isAlertSuccess = true
         showAlert = true
-        let defaults = UserDefaults.standard;
-        defaults.removeObject(forKey: "userPosts")
-        defaults.removeObject(forKey: "allProducts")
-        defaults.removeObject(forKey: "recommendedProducts")
+        
     }
     func allFieldsAreFilled() -> Bool {
         // Verifica que name, description y subject no contengan solo espacios

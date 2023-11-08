@@ -95,6 +95,12 @@ class PostsController: ObservableObject {
             if let httpResponse = response as? HTTPURLResponse {
                 if (200...299).contains(httpResponse.statusCode) {
                     completion(true)
+                    let defaults = UserDefaults.standard;
+                    defaults.removeObject(forKey: "userPosts")
+                    defaults.removeObject(forKey: "allProducts")
+                    defaults.removeObject(forKey: "recommendedProducts")
+                    defaults.removeObject(forKey: "userFavoriteProducts")
+                    
                 } else {
                     print("Server returned an error status code.")
                     completion(false)
@@ -103,14 +109,6 @@ class PostsController: ObservableObject {
                 completion(false)
             }
             
-            let defaults = UserDefaults.standard;
-            defaults.removeObject(forKey: "userPosts")
-            defaults.removeObject(forKey: "allProducts")
-            defaults.removeObject(forKey: "recommendedProducts")
-            defaults.removeObject(forKey: "userFavoriteProducts")
-            DispatchQueue.main.async {
-                self.fetchProductsByUserID(id: id)
-            }
         }.resume()
     }
     
