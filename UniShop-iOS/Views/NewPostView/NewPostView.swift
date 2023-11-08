@@ -1,4 +1,6 @@
 import SwiftUI
+import FirebaseStorage
+import Foundation
 
 struct NewPostView: View {
     @State private var name: String = ""
@@ -8,6 +10,7 @@ struct NewPostView: View {
     @State private var degree: String = ""
     @State private var isNewProduct: Bool = false
     @State private var selectedImage: Image? = nil
+    @State private var selecteduiImage: UIImage? = nil
     @State private var isImagePickerPresented: Bool = false
     @State private var isImageSelected: Bool = false
     @StateObject var newPostViewModel = NewPostViewModel()
@@ -52,7 +55,7 @@ struct NewPostView: View {
                     .frame(maxWidth: .infinity)
                     .padding([.leading, .trailing], 15)
                     .sheet(isPresented: $isCameraPickerPresented) {
-                        ImagePickerView(image: $selectedImage, sourceType: .camera)
+                        ImagePickerView(image: $selectedImage, uiImage: $selecteduiImage, sourceType: .camera)
                     }
                     
                     Button(action:  {
@@ -67,7 +70,7 @@ struct NewPostView: View {
                     .frame(maxWidth: .infinity)
                     .padding([.leading, .trailing], 15)
                     .sheet(isPresented: $isGalleryPickerPresented) {
-                        ImagePickerView(image: $selectedImage, sourceType: .photoLibrary)
+                        ImagePickerView(image: $selectedImage, uiImage: $selecteduiImage, sourceType: .photoLibrary)
                     }
                 }
                 
@@ -86,7 +89,7 @@ struct NewPostView: View {
                 
                 Group{
                     Text("Select your degree")
-                    .offset(x: -getRelativeHeight(120))
+                        .offset(x: -getRelativeHeight(120))
                 }
                 Group{
                     
@@ -106,7 +109,7 @@ struct NewPostView: View {
                 
                 Group{
                     Text("Select the category of your product")
-                    .offset(x: -getRelativeHeight(70))
+                        .offset(x: -getRelativeHeight(70))
                 }
                 Group{
                     
@@ -114,7 +117,7 @@ struct NewPostView: View {
                         Picker("Others", selection: $newPostViewModel.selectedCategory) {
                             ForEach(["Others","Computers",
                                      "Tablets",
-                                    " Cell phones",
+                                     " Cell phones",
                                      "Small electronic supplies",
                                      "Electronic servomotors",
                                      "Electronic photocells",
@@ -127,7 +130,7 @@ struct NewPostView: View {
                                      "Clothes and accessories",
                                      "Furniture",
                                      "Home clothes"
-                                     ], id: \.self) { carrera in
+                                    ], id: \.self) { carrera in
                                 Text(carrera).tag(carrera)
                                     .foregroundColor(Color.blue)
                             }
@@ -150,10 +153,10 @@ struct NewPostView: View {
                         isAlertSuccess = false
                         return
                     }
-    
+                    
                     else if allFieldsAreFilled() {
                         createNewPost()
-                       
+                        
                     }
                     else {
                         alertMessage = "Not published, empty fields or incorrect values"
@@ -194,6 +197,19 @@ struct NewPostView: View {
         }
     }
     func createNewPost() {
+        let uuid = UUID().uuidString
+        if let data = selecteduiImage?.pngData() {
+            if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = documentsDirectory.appendingPathComponent("\(uuid).png")
+                do {
+                    try data.write(to: fileURL)
+                    uploadFile(fileUrl: fileURL)
+                } catch {
+                    // Handle the error
+                    print("Error saving file: \(error)")
+                }
+            }
+        }
         
         var url = "https://i.pinimg.com/originals/80/b5/81/80b5813d8ad81a765ca47ebc59a65ac3.jpg"
         
@@ -209,7 +225,7 @@ struct NewPostView: View {
                 "recycled": false, // Cambia a true si lo necesitas
                 "subject": subject,
                 "urlsImages": url, // Agrega la URL de la imagen aquí si es necesario
-                "userId": UserDefaults.standard.string(forKey: "userID") // Cambia al ID de usuario correcto
+                "userId": UserDefaults.standard.string(forKey: "userID") ?? "0" // Cambia al ID de usuario correcto
             ]
         ]
         
@@ -272,6 +288,36 @@ struct NewPostView: View {
         
         
         return validName && validDescription && validSubject && validPrice
+    }
+    
+    func uploadFile(fileUrl: URL) {
+        do {
+            print("about to upload")
+            let fileExtension = fileUrl.pathExtension
+            let uuid = UUID().uuidString
+            let fileName = "\(uuid).\(fileExtension)"
+            
+            let storageReference = Storage.storage().reference().child(fileName)
+            let currentUploadTask = storageReference.putFile(from: fileUrl, metadata: nil) { (storageMetaData, error) in
+                if let error = error {
+                    print("Upload error: \(error.localizedDescription)")
+                    return
+                }
+                
+                // Show UIAlertController here
+                print("Image file: \(fileName) is uploaded! View it at Firebase console!")
+                
+                storageReference.downloadURL { (url, error) in
+                    if let error = error  {
+                        print("Error on getting download url: \(error.localizedDescription)")
+                        return
+                    }
+                    print("Download url of \(fileName) is \(url!.absoluteString)")
+                }
+            }
+        } catch {
+            print("Error on extracting data from url: \(error.localizedDescription)")
+        }
     }
     
     struct NewPostView_Previews: PreviewProvider {
