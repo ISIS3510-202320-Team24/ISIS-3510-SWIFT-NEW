@@ -88,6 +88,9 @@ struct ProductCard2View: View {
     func deleteProduct() {
         self.controller.deletePostById(id: product.id) { success in
             if success {
+                DispatchQueue.main.async {
+                    self.controller.userProducts.removeAll { $0.id == product.id }
+                }
             }
         }
     }
