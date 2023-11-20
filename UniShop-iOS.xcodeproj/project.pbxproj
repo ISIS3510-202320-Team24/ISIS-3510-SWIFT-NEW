@@ -753,8 +753,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Esta aplicación necesita acceso a la cámara para tomar fotos y cargar imágenes.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Esta aplicación necesita acceder a tu ubicación para proporcionarte información personalizada.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -766,7 +767,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.alejandrogonzalez.UniShop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24.UniShop-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -786,8 +787,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Esta aplicación necesita acceso a la cámara para tomar fotos y cargar imágenes.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires access to the device's location in order to activate the \"help alert\" functionality";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Esta aplicación necesita acceder a tu ubicación para proporcionarte información personalizada.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -799,7 +801,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.alejandrogonzalez.UniShop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24.UniShop-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
