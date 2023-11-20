@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "32EB9A5D-973C-4709-9D5E-EABF423F85B2"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "19323567-7622-498E-8B5B-95C6DE98841D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniShop-iOS/Views/NewPostView/NewPostView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5"
+            endingLineNumber = "5"
+            landmarkName = "NewPostView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "19323567-7622-498E-8B5B-95C6DE98841D - 6c6d7fa07865eff4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UniShop_iOS.NewPostView.init() -&gt; UniShop_iOS.NewPostView"
+                  moduleName = "UniShop-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/juanhernandez/Documents/UNIANDES/202320/Moviles/ISIS-3510-SWIFT-NEW/UniShop-iOS/Views/NewPostView/NewPostView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "5"
+                  endingLineNumber = "5"
+                  offsetFromSymbolStart = "1652">
+               </Location>
+               <Location
+                  uuid = "19323567-7622-498E-8B5B-95C6DE98841D - 1f863f15f1fccb08"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UniShop_iOS.NewPostView.init(newPostViewModel: @autoclosure () -&gt; UniShop_iOS.NewPostViewModel) -&gt; UniShop_iOS.NewPostView"
+                  moduleName = "UniShop-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/juanhernandez/Documents/UNIANDES/202320/Moviles/ISIS-3510-SWIFT-NEW/UniShop-iOS/Views/NewPostView/NewPostView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "6"
+                  endingLineNumber = "6"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

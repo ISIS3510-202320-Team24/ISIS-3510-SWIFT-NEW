@@ -62,7 +62,7 @@ struct ProductCard2View: View {
                             .background(Color.cyan)
                             .foregroundColor(.white)
                             .cornerRadius(8)
-                    }.padding(.top, 25)
+                    }.padding(.top, 5)
                 }else{
                     Button(action: soldProduct) {
                         Text("Sold")
@@ -88,6 +88,9 @@ struct ProductCard2View: View {
     func deleteProduct() {
         self.controller.deletePostById(id: product.id) { success in
             if success {
+                DispatchQueue.main.async {
+                    self.controller.userProducts.removeAll { $0.id == product.id }
+                }
             }
         }
     }
