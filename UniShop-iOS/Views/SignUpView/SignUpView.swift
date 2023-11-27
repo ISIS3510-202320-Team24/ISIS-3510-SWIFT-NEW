@@ -2,6 +2,7 @@ import SwiftUI
 struct SignUpView: View {
     @State private var navigateToLogin = false
     @StateObject var signUpViewModel = SignUpViewModel()
+    @State private var showErrorAlert = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
@@ -414,6 +415,13 @@ struct SignUpView: View {
                                         }
                                     }
                                 }
+                                else{
+                                    self.showErrorAlert = true
+                                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                                                       showErrorAlert = false
+                                                   }
+                                }
+                                
                             }) {
                                 // Botón de registro
                                 Text(StringConstants.kLblSignUp)
@@ -427,14 +435,30 @@ struct SignUpView: View {
                                     .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0), alignment: .center)
                                     .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0)
                                         .fill(Color(red: 1, green: 0.776, blue: 0)))
-                                    .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 50 : 0)
+                                    .padding(.top, signUpViewModel.passwordText != signUpViewModel.cnpaswordText ? 70 : 0)
                                     .padding(.top, signUpViewModel.rowflagofcolombiText.count < 10  ? 50 : 0)
                                     .padding(.top, !signUpViewModel.isValidMailText ? 40 : 0)
                                     .padding(.top, !signUpViewModel.isValidPasswordText ? 150 : 0)
+                                    .padding(.top, signUpViewModel.passwordText.count < 11 && signUpViewModel.passwordText.count > 0 ? 50: 0)
                             }
                             .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(48.0),
                                    alignment: .center)
                             .padding(.horizontal, getRelativeWidth(29.0))
+                    
+                           
+                            if showErrorAlert {
+                                    Text("Something is Wrong! Check your fields.")
+                                        .font(FontScheme.kPoppinsRegular(size: getRelativeHeight(16.0)))
+                                        .fontWeight(.regular)
+                                        .foregroundColor(Color.red)
+                                        .multilineTextAlignment(.center)
+                                        .padding(.top, getRelativeHeight(20))
+                                        .padding(.bottom, signUpViewModel.passwordText.count < 11 && signUpViewModel.passwordText.count > 0 ? 50: 0)
+                                        
+                                      
+
+                                }
+
                             NavigationLink(destination: LoginView(), isActive: $navigateToLogin) {
                                 EmptyView()
                             }
