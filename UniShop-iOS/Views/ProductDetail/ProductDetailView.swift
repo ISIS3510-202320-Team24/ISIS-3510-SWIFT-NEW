@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct VerticalSpacingModifier: ViewModifier {
     let space: CGFloat
 
@@ -17,6 +16,7 @@ extension View {
 struct ProductDetailView: View {
     var productId: String
     var owner: Bool
+    @State private var isContactSellerPresented = false
     @ObservedObject var viewModel: ProductDetailViewModel
     @ObservedObject var controller: PostsController
     @ObservedObject var favController: FavoritesController
@@ -83,7 +83,8 @@ struct ProductDetailView: View {
                     infoRow(title: "Category:", value: product.category)
                     infoRow(title: "Sold by:", value: product.user.name + " - @" + product.user.username)
                     infoRow(title: "Sold:", value: product.sold ? "Yes" : "No")
-                    infoRow(title: "Posted:", value: product.date)
+           
+                    
 
                     VStack {
                         if (self.owner || (self.viewModel.product?.user.username == UserDefaults.standard.string(forKey: "username") && self.viewModel.product?.user.name == UserDefaults.standard.string(forKey: "userName"))) {
@@ -126,7 +127,7 @@ struct ProductDetailView: View {
                             .padding(.top, 25)
                             
                             Button(action: {
-                                // TODO: handle contact seller action
+                                isContactSellerPresented.toggle() // Toggle the contact seller view presentation
                             }) {
                                 Text("Contact Seller")
                                     .font(.custom("Archivo-Regular", size: 16))
@@ -139,6 +140,11 @@ struct ProductDetailView: View {
                             .padding([.leading, .trailing], 15)
                             .padding(.top, 5)
                             .padding(.bottom, 35)
+                            .sheet(isPresented: $isContactSellerPresented) {
+                                ContactSellerView(sellerName: product.user.name, phoneNumber:"product.user.phone")
+                            }
+
+
                         }
                     }
                 } else {
