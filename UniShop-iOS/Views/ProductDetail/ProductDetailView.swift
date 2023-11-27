@@ -141,9 +141,8 @@ struct ProductDetailView: View {
                             .padding(.top, 5)
                             .padding(.bottom, 35)
                             .sheet(isPresented: $isContactSellerPresented) {
-                                ContactSellerView(sellerName: product.user.name, phoneNumber:"product.user.phone")
+                                ContactSellerView(sellerName: product.user.name, phoneNumber:product.user.phone)
                             }
-
 
                         }
                     }
