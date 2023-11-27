@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		059A913C2AE1C30200C59F75 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 059A913B2AE1C30200C59F75 /* .gitignore */; };
+		05CE20A42B142CB7005F9ADB /* ContactSellerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CE20A32B142CB7005F9ADB /* ContactSellerView.swift */; };
 		05D005242AF18D3300598A58 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D005232AF18D3300598A58 /* NetworkManager.swift */; };
 		678AF3C32AF44491009316BF /* ProductCard3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678AF3C22AF44491009316BF /* ProductCard3View.swift */; };
 		679CC3032AF42B3600470779 /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679CC3022AF42B3600470779 /* FavoritesController.swift */; };
-		67C8B92F2AFB225C00512BBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67C8B92E2AFB225C00512BBE /* GoogleService-Info.plist */; };
+		67B316D32B0FF975006D0742 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67B316D22B0FF975006D0742 /* GoogleService-Info.plist */; };
 		67C8B9322AFB24A000512BBE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 67C8B9312AFB24A000512BBE /* FirebaseAnalytics */; };
 		67C8B9342AFB24A000512BBE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 67C8B9332AFB24A000512BBE /* FirebaseAnalyticsOnDeviceConversion */; };
 		67C8B9362AFB24A000512BBE /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 67C8B9352AFB24A000512BBE /* FirebaseAnalyticsSwift */; };
@@ -93,10 +94,11 @@
 
 /* Begin PBXFileReference section */
 		059A913B2AE1C30200C59F75 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		05CE20A32B142CB7005F9ADB /* ContactSellerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSellerView.swift; sourceTree = "<group>"; };
 		05D005232AF18D3300598A58 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		678AF3C22AF44491009316BF /* ProductCard3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard3View.swift; sourceTree = "<group>"; };
 		679CC3022AF42B3600470779 /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
-		67C8B92E2AFB225C00512BBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		67B316D22B0FF975006D0742 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD3CAF3B2AF18B9A00CB7305 /* PostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsController.swift; sourceTree = "<group>"; };
 		BD3CAF3D2AF19B2200CB7305 /* ProductCard2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard2View.swift; sourceTree = "<group>"; };
 		BD5675022ACB252800E34048 /* UniShop-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UniShop-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +191,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05CE20A22B142C9D005F9ADB /* ContactSellerView */ = {
+			isa = PBXGroup;
+			children = (
+				05CE20A32B142CB7005F9ADB /* ContactSellerView.swift */,
+			);
+			path = ContactSellerView;
+			sourceTree = "<group>";
+		};
 		BD5674F92ACB252800E34048 = {
 			isa = PBXGroup;
 			children = (
@@ -208,7 +218,7 @@
 		BD5675042ACB252800E34048 /* UniShop-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				67C8B92E2AFB225C00512BBE /* GoogleService-Info.plist */,
+				67B316D22B0FF975006D0742 /* GoogleService-Info.plist */,
 				BD7E81402ACCA92A009116D7 /* Info.plist */,
 				BD7E813F2ACCA8E4009116D7 /* Managers */,
 				BD56757E2ACB73D400E34048 /* Utilities */,
@@ -227,6 +237,7 @@
 		BD5675132ACB25CC00E34048 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				05CE20A22B142C9D005F9ADB /* ContactSellerView */,
 				BD5675912ACB741300E34048 /* LoginView */,
 				BD5675882ACB741300E34048 /* NewPostView */,
 				BD56758E2ACB741300E34048 /* SignUpView */,
@@ -558,7 +569,7 @@
 				BD5675732ACB739200E34048 /* PoppinsRegular.ttf in Resources */,
 				BD5675762ACB739200E34048 /* OutfitMedium.ttf in Resources */,
 				BD5675742ACB739200E34048 /* OutfitSemiBold.ttf in Resources */,
-				67C8B92F2AFB225C00512BBE /* GoogleService-Info.plist in Resources */,
+				67B316D32B0FF975006D0742 /* GoogleService-Info.plist in Resources */,
 				059A913C2AE1C30200C59F75 /* .gitignore in Resources */,
 				BD5675782ACB739200E34048 /* OutfitBold.ttf in Resources */,
 			);
@@ -599,6 +610,7 @@
 				BD5675862ACB73D400E34048 /* CameraPermission.swift in Sources */,
 				BD56755D2ACB732600E34048 /* UINavigationController.swift in Sources */,
 				BD5675992ACB741300E34048 /* SignUpView.swift in Sources */,
+				05CE20A42B142CB7005F9ADB /* ContactSellerView.swift in Sources */,
 				BD5675872ACB73D400E34048 /* Validation.swift in Sources */,
 				BD5675942ACB741300E34048 /* NewPostViewModel.swift in Sources */,
 				BD5675412ACB6ECE00E34048 /* FavoritesView.swift in Sources */,
@@ -749,7 +761,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = D86K829P3Z;
+				DEVELOPMENT_TEAM = B423AH2WYT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
@@ -767,7 +779,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24.UniShop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24-1.UniShop-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -783,7 +795,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UniShop-iOS/Preview Content\"";
-				DEVELOPMENT_TEAM = D86K829P3Z;
+				DEVELOPMENT_TEAM = B423AH2WYT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "UniShop-iOS/Info.plist";
@@ -801,7 +813,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24.UniShop-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.isis3510-team24-1.UniShop-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

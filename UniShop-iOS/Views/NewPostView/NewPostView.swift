@@ -34,6 +34,11 @@ struct NewPostView: View {
                 TextField("Name", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 15)
+                    .onChange(of: name) { newValue in
+                        if newValue.count > 50 {
+                            name = String(newValue.prefix(50))
+                        }
+                    }
                 
                 if selectedImage != nil { // Mostrar la imagen si está seleccionada
                     selectedImage!
@@ -77,15 +82,30 @@ struct NewPostView: View {
                 TextField("Description", text: $description)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 15)
+                    .onChange(of: description) { newValue in
+                        if newValue.count > 100 {
+                            description = String(newValue.prefix(100))
+                        }
+                    }
                 
                 TextField("Price", text: $price)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
                     .padding([.leading, .trailing], 15)
+                    .onChange(of: price) { newValue in
+                        if newValue.count > 9 {
+                            price = String(newValue.prefix(9))
+                        }
+                    }
                 
                 TextField("Subject", text: $subject)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding([.leading, .trailing], 15)
+                    .onChange(of: subject) { newValue in
+                        if newValue.count > 20 {
+                            subject = String(newValue.prefix(20))
+                        }
+                    }
                 
                 Group{
                     Text("Select your degree")
@@ -109,7 +129,7 @@ struct NewPostView: View {
                 
                 Group{
                     Text("Select the category of your product")
-                        .offset(x: -getRelativeHeight(57))
+                        .offset(x: -getRelativeHeight(65))
                 }
                 Group{
                     
@@ -144,6 +164,7 @@ struct NewPostView: View {
                 
                 Toggle("New Product", isOn: $isNewProduct)
                     .padding([.leading, .trailing], 15)
+                    .offset(x: getRelativeHeight(9))
                 
                 Button(action: {
                     
@@ -173,25 +194,15 @@ struct NewPostView: View {
                 }
                 .padding([.leading, .trailing], 15)
                 
-                .onTapGesture {
-                    if allFieldsAreFilled() {
-                        createNewPost()
-                    } else {
-                        alertMessage = "Not published, empty fields or incorrect values"
-                        showAlert = true
-                        isAlertSuccess = false
+                if showAlert {
+                        Text(alertMessage)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(isAlertSuccess ? Color.green : Color.red)
+                            .cornerRadius(10)
+                            .opacity(showAlert ? 1 : 0)
+                            .animation(.easeInOut(duration: 0.5))
                     }
-                }
-                
-                .overlay(
-                    Text(alertMessage)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(isAlertSuccess ? Color.green : Color.red) // Ajusta el color aquí
-                        .cornerRadius(10)
-                        .opacity(showAlert ? 1 : 0)
-                        .animation(.easeInOut(duration: 0.5))
-                )
             }
         }
     }

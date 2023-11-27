@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCoI9b16BPsplYLqYtSOEh6FtyzTgcwUOs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>332357102132</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>co.isis3510-team24.UniShop-iOS</string>
+	<key>PROJECT_ID</key>
+	<string>moviles-d76f5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>moviles-d76f5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:332357102132:ios:e39f02c9ca265d56d5f861</string>
+</dict>
+</plist>

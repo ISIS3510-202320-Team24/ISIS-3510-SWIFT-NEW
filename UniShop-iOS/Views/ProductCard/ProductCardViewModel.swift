@@ -40,6 +40,7 @@ struct Product: Codable {
 struct User: Codable {
     let name: String
     let username: String
+    let phone: String
 }
 
 class ProductCardViewModel: ObservableObject {
