@@ -287,7 +287,7 @@ struct NewPostView: View {
                 }
             }
         }
-        alertMessage = "Successfully published!"
+        alertMessage = "We are reviewing your Post.You will see it soon!"
         isAlertSuccess = true
         showAlert = true
         

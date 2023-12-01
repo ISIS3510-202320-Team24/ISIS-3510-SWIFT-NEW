@@ -1,10 +1,10 @@
-
 import SwiftUI
+import Foundation
 import MessageUI
 
 struct ContactSellerView: View {
     let sellerName: String
-    let phoneNumber: String // Add seller's phone number as a parameter
+    let phoneNumber: String
     
     var body: some View {
         VStack {
@@ -29,18 +29,20 @@ struct ContactSellerView: View {
             Text("Phone Number:")
                 .font(.headline)
             
-            Text(phoneNumber) // Display seller's phone number
+            Text(phoneNumber)
                 .font(.title)
                 .padding(.bottom, 30)
             
             Button(action: {
-            
+                if let url = URL(string: "tel://\(phoneNumber)") {
+                    UIApplication.shared.open(url)
+                }
             }) {
                 Text("Call Seller")
                     .font(.title)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color(red: 0.23, green: 0.23, blue: 0.23))
+                    .background(Color(red: 1, green: 0.776, blue: 0))
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -48,5 +50,3 @@ struct ContactSellerView: View {
         .padding()
     }
 }
-
-
