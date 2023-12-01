@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct PostsView: View {
+struct SoldPostsView: View {
     @State private var searchText: String = ""
     @State private var scrollOffset: CGFloat = 0
     private var navigationBarHeight: CGFloat {
         return UINavigationBar.appearance().frame.height
     }
-    @ObservedObject var controller = PostsController()
+    @ObservedObject var controller = SoldPostsController()
     @State private var showAlert = false
     @State private var userID: String = UserDefaults.standard.string(forKey: "userID") ?? "ID"
     
@@ -28,24 +28,13 @@ struct PostsView: View {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                             ForEach(filteredProducts, id: \.name) { product in
                                 ZStack {
-                                    ProductCard2View(product: product, controller: self.controller)
+                                    ProductCard4View(product: product, controller: self.controller)
                                 }
                             }
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 150)
                         .padding(.bottom, 75)
-                    }
-                    
-                    if !filteredProducts.isEmpty {
-                        NavigationLink(destination: SoldPostsView()) {
-                            Text("View Sold")
-                                .frame(maxWidth: .infinity, minHeight: 50)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding()
-                        }
                     }
                 }
                 .background(GeometryReader {
@@ -71,7 +60,7 @@ struct PostsView: View {
                         .padding(.top, 125)
                     }
                 } else if filteredProducts.isEmpty {
-                    Text("You have no posts currently")
+                    Text("You have not sold any products yet")
                         .font(.title2)
                         .foregroundColor(.gray)
                         .padding(.top, 400)
@@ -86,7 +75,7 @@ struct PostsView: View {
                         .padding(.top, 10)
                     
                     HStack {
-                        Text("Your Posts (\(controller.userProducts.count))")
+                        Text("Your Sold Products (\(controller.userProducts.count))")
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(Color(red: 0.067, green: 0.075, blue: 0.082))
                             .padding([.leading, .trailing], 15)
@@ -127,8 +116,8 @@ struct PostsView: View {
 }
 
 
-struct PostsView_Previews: PreviewProvider {
+struct SoldPostsView_Previews: PreviewProvider {
     static var previews: some View {
-        PostsView()
+        SoldPostsView()
     }
 }
