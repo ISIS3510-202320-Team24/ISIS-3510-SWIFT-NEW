@@ -139,7 +139,7 @@ struct ExploreView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 .onAppear {
-                    Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { _ in
+                    Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                         self.checkInternetConnection()
                     }
                 }
