@@ -139,8 +139,7 @@ struct ExploreView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 .onAppear {
-                    // Configura un temporizador para verificar la conexión cada 3 segundos
-                    Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                    Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                         self.checkInternetConnection()
                     }
                 }

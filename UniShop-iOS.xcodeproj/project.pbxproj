@@ -90,6 +90,9 @@
 		BD56759D2ACBC69900E34048 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD56759C2ACBC69900E34048 /* ProfileViewController.swift */; };
 		BD5675A12ACBE38D00E34048 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */; };
 		BD7E813E2ACCA810009116D7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7E813D2ACCA810009116D7 /* LocationManager.swift */; };
+		BDA41B7C2B19412A007A2507 /* SoldPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA41B7B2B19412A007A2507 /* SoldPostsView.swift */; };
+		BDA41B7E2B194454007A2507 /* SoldPostsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA41B7D2B194454007A2507 /* SoldPostsController.swift */; };
+		BDA41B822B1944F6007A2507 /* ProductCard4View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA41B812B1944F6007A2507 /* ProductCard4View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +154,9 @@
 		BD5675A02ACBE38D00E34048 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BD7E813D2ACCA810009116D7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BD7E81402ACCA92A009116D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDA41B7B2B19412A007A2507 /* SoldPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoldPostsView.swift; sourceTree = "<group>"; };
+		BDA41B7D2B194454007A2507 /* SoldPostsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoldPostsController.swift; sourceTree = "<group>"; };
+		BDA41B812B1944F6007A2507 /* ProductCard4View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard4View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +243,7 @@
 		BD5675132ACB25CC00E34048 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BDA41B7A2B19410B007A2507 /* SoldPostsView */,
 				05CE20A22B142C9D005F9ADB /* ContactSellerView */,
 				BD5675912ACB741300E34048 /* LoginView */,
 				BD5675882ACB741300E34048 /* NewPostView */,
@@ -472,6 +479,16 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		BDA41B7A2B19410B007A2507 /* SoldPostsView */ = {
+			isa = PBXGroup;
+			children = (
+				BDA41B812B1944F6007A2507 /* ProductCard4View.swift */,
+				BDA41B7B2B19412A007A2507 /* SoldPostsView.swift */,
+				BDA41B7D2B194454007A2507 /* SoldPostsController.swift */,
+			);
+			path = SoldPostsView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -593,6 +610,7 @@
 				BD56759A2ACB741300E34048 /* LoginViewModel.swift in Sources */,
 				BD56755F2ACB732600E34048 /* ViewExtension.swift in Sources */,
 				BD5675672ACB735B00E34048 /* ViewportHelper.swift in Sources */,
+				BDA41B7C2B19412A007A2507 /* SoldPostsView.swift in Sources */,
 				BD5675252ACB32A400E34048 /* ProfileView.swift in Sources */,
 				BD3CAF3C2AF18B9A00CB7305 /* PostsController.swift in Sources */,
 				BD5675472ACB722500E34048 /* ExploreViewModel.swift in Sources */,
@@ -600,6 +618,7 @@
 				BD56752E2ACB385800E34048 /* ProductCardViewModel.swift in Sources */,
 				BD56755E2ACB732600E34048 /* APIExtensions.swift in Sources */,
 				BD5675842ACB73D400E34048 /* Utilities.swift in Sources */,
+				BDA41B822B1944F6007A2507 /* ProductCard4View.swift in Sources */,
 				BD5675462ACB722500E34048 /* ExploreView.swift in Sources */,
 				BD5675952ACB741300E34048 /* ImagePickerView.swift in Sources */,
 				05D005242AF18D3300598A58 /* NetworkManager.swift in Sources */,
@@ -616,6 +635,7 @@
 				BD5675412ACB6ECE00E34048 /* FavoritesView.swift in Sources */,
 				BD5675972ACB741300E34048 /* NewPostView.swift in Sources */,
 				BD56754E2ACB728100E34048 /* AppConstants.swift in Sources */,
+				BDA41B7E2B194454007A2507 /* SoldPostsController.swift in Sources */,
 				678AF3C32AF44491009316BF /* ProductCard3View.swift in Sources */,
 				BD56754D2ACB728100E34048 /* FontScheme.swift in Sources */,
 				BD5675062ACB252800E34048 /* UniShop_iOSApp.swift in Sources */,
