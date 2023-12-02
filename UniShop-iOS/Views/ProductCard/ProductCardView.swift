@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ProductCardView: View {
     var product: Product
+    private let customFont: Font = .custom("Helvetica", size: 18)
+
     
     var body: some View {
         NavigationLink(destination: ProductDetailView(productId: product.id)) {
@@ -22,18 +24,18 @@ struct ProductCardView: View {
                 }
                 
                 Text(product.name)
-                    .font(.custom("Helvetica", size: 18))
+                    .font(customFont)
                     .frame(height: 40)
                 
                 
                 Text(product.price)
-                    .font(.custom("Helvetica", size: 16))
+                    .font(customFont)
                     .foregroundColor(Color(red: 0.241, green: 0.257, blue: 0.222))
                     .frame(height: 30)
                 
                 HStack {
                     Text(product.user.username)
-                        .font(.custom("Helvetica", size: 15))
+                        .font(customFont)
                         .foregroundColor(Color(red: 0.541, green: 0.557, blue: 0.522))
                         .frame(height: 20)
                     

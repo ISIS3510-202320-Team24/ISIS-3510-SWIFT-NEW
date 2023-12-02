@@ -13,25 +13,24 @@ struct HomeView: View {
     @State private var showAlert = false
     
     var lastAlertDescription: String {
-        guard let lastAlert = hViewModel.alerts.last else { return "" }
-        return """
+        if let lastAlert = hViewModel.alerts.last {
+            return """
                 User: \(lastAlert.user.name) (\(lastAlert.user.username))
                 Latitude: \(lastAlert.latitude)
                 Longitude: \(lastAlert.longitude)
             """
+        }
+        return ""
     }
     
     var filteredProducts: [Product] {
-        if searchText.isEmpty {
-            return viewModel.products.filter { product in
-                product.sold == false
-            }
-        } else {
-            return viewModel.products.filter { product in
-                product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
-            }
+        return viewModel.products.filter { product in
+            searchText.isEmpty ? !product.sold : product.name.localizedCaseInsensitiveContains(searchText.replacingOccurrences(of: " ", with: ""))
         }
     }
+    
+    let defaultBackgroundColor = Color(red: 0.933, green: 0.933, blue: 0.933)
+    let selectedBackgroundColor = Color(red: 1, green: 0.776, blue: 0)
 
     var body: some View {
         NavigationView {
@@ -77,7 +76,7 @@ struct HomeView: View {
                 VStack {
                     TextField("Search Products", text: $searchText)
                         .padding()
-                        .background(Color(red: 0.941, green: 0.941, blue: 0.941))
+                        .background(defaultBackgroundColor)
                         .cornerRadius(10)
                         .padding([.leading, .trailing], 13)
                         .padding(.top, 10)
@@ -122,11 +121,12 @@ struct HomeView: View {
                         .padding([.leading, .trailing], 13)
                     }
                     .onChange(of: selectedCategory) { newValue in
-                        if newValue == "Recommended" {
+                        switch newValue {
+                        case "Recommended":
                             viewModel.fetchRecommendedProducts()
-                        } else if (newValue == "Bargains") {
+                        case "Bargains":
                             viewModel.fetchBargainProducts()
-                        } else {
+                        default:
                             viewModel.fetchProducts()
                         }
                     }
@@ -178,6 +178,9 @@ struct HomeView: View {
 }
 
 struct DropdownView: View {
+    
+    let defaultBackgroundColor = Color(red: 0.933, green: 0.933, blue: 0.933)
+    let selectedBackgroundColor = Color(red: 1, green: 0.776, blue: 0)
     var labelText: String
     @Binding var selectedCategory: String
     
@@ -198,7 +201,7 @@ struct DropdownView: View {
                 }
             }
             .padding()
-            .background(selectedCategory == labelText ? Color(red: 1, green: 0.776, blue: 0) : Color(red: 0.933, green: 0.933, blue: 0.933))
+            .background(selectedCategory == labelText ? selectedBackgroundColor : defaultBackgroundColor)
             .cornerRadius(6)
         }
         .buttonStyle(PlainButtonStyle())
