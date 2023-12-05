@@ -40,6 +40,18 @@ struct ProductCard4View: View {
                     
                     Spacer()
                 }
+                if product.sold {
+                    Button(action: unsoldProduct) {
+                        Text("Un-Sold")
+                            .font(.system(size: 16, design: .default))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(Color.cyan)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }.padding(.top, 5)
+                }
             }
             .padding(10)
             .background(Color.white)
@@ -47,5 +59,11 @@ struct ProductCard4View: View {
             .shadow(radius: 5)
         }
         .buttonStyle(PlainButtonStyle())
+    }
+    func unsoldProduct() {
+        self.controller.unsold(user_id: userID, post_id: product.id) { success in
+            if success {
+            }
+        }
     }
 }

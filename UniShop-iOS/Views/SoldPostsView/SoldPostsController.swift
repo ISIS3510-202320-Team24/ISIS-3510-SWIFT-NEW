@@ -73,6 +73,45 @@ class SoldPostsController: ObservableObject {
             }
         }.resume()
     }
+    func unsold(user_id: String, post_id: String, completion: @escaping (Bool) -> Void) {
+        guard let url = URL(string: "https://creative-mole-46.hasura.app/api/rest/notsold") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("mmjEW9L3cf3SZ0cr5pb6hnnnFp1ud4CB4M6iT1f0xYons16k2468G9SqXS9KgdAZ", forHTTPHeaderField: "x-hasura-admin-secret")
+        
+        let body: [String: Any] = ["post_id": post_id, "user_id": user_id]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Network error: \(error)")
+                completion(false)
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if (200...299).contains(httpResponse.statusCode) {
+                    completion(true)
+                } else {
+                    print("Server returned an error status code.")
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+            let defaults = UserDefaults.standard;
+            defaults.removeObject(forKey: "userPosts")
+            defaults.removeObject(forKey: "allProducts")
+            defaults.removeObject(forKey: "recommendedProducts")
+            defaults.removeObject(forKey: "userFavoriteProducts")
+            DispatchQueue.main.async {
+                self.fetchProductsByUserID(id: user_id)
+            }
+        }.resume()
+        
+    }
     
     private func saveToLocalStorage() {
         do {
