@@ -61,7 +61,9 @@ class PostsController: ObservableObject {
             do {
                 let response = try JSONDecoder().decode(Response.self, from: data)
                 DispatchQueue.main.async {
-                    self.userProducts = response.post.reversed()
+                    self.userProducts = response.post.filter { product in
+                        product.sold == false
+                    }
                     self.saveToLocalStorage()
                 }
             } catch {

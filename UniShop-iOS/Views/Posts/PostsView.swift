@@ -37,16 +37,6 @@ struct PostsView: View {
                         .padding(.bottom, 75)
                     }
                     
-                    if !filteredProducts.isEmpty {
-                        NavigationLink(destination: SoldPostsView()) {
-                            Text("View Sold")
-                                .frame(maxWidth: .infinity, minHeight: 50)
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding()
-                        }
-                    }
                 }
                 .background(GeometryReader {
                     Color.clear.preference(key: ViewOffsetKey.self,
@@ -123,6 +113,14 @@ struct PostsView: View {
             }
             .coordinateSpace(name: "scroll")
         }
+        NavigationLink(destination: SoldPostsView()) {
+            Text("View Sold")
+                .frame(maxWidth: .infinity, minHeight: 50)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding()
+        }.padding(.top, -128)
     }
 }
 
